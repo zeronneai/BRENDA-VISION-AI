@@ -12,6 +12,7 @@ const CalendarPage = lazy(() => import('./pages/CalendarPage'))
 const Progress = lazy(() => import('./pages/Progress'))
 const Profile = lazy(() => import('./pages/Profile'))
 const WorkoutDetail = lazy(() => import('./pages/WorkoutDetail'))
+const Privacy = lazy(() => import('./pages/Privacy'))
 
 function AppRoutes() {
   const { user } = useApp()
@@ -20,6 +21,9 @@ function AppRoutes() {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
+        {/* Public routes — always accessible */}
+        <Route path="/privacy" element={<Privacy />} />
+
         {!isOnboarded ? (
           <>
             <Route path="/onboarding" element={<Onboarding />} />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   User, Settings, Bell, Scale, Ruler, Target, ChevronRight,
@@ -25,6 +26,7 @@ const LEVELS = {
 export default function Profile() {
   const { user, updateUser, settings, updateSettings, streak, weeklyWorkouts, totalWorkouts } = useApp()
   const [activeSection, setActiveSection] = useState(null)
+  const navigate = useNavigate()
 
   return (
     <div className="pb-6">
@@ -152,6 +154,7 @@ export default function Profile() {
         <SettingsGroup title="Acerca de" icon={<Star size={16} className="text-brand-gold" />}>
           <SettingsRow label="Versión" value="1.0.0" />
           <SettingsRow label="Sígueme en Instagram" value="@brendaa_jazmin" icon={<Instagram size={14} />} />
+          <SettingsRow label="Política de Privacidad" value="Ver" onPress={() => navigate('/privacy')} />
           <SettingsRow label="Soporte" value="Ayuda y FAQ" onPress={() => {}} noBorder />
         </SettingsGroup>
 
