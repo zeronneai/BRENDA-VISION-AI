@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react'
 
 const AppContext = createContext(null)
 
@@ -76,7 +76,13 @@ export function AppProvider({ children }) {
   useEffect(() => { saveToStorage('bf_settings', settings) }, [settings])
   useEffect(() => { saveToStorage('bf_workout_log', workoutLog) }, [workoutLog])
   useEffect(() => { saveToStorage('bf_progress_log', progressLog) }, [progressLog])
-  useEffect(() => { saveToStorage('bf_chat_history', chatHistory) }, [chatHistory])
+  // Debounce chat history saves to avoid hundreds of localStorage writes during streaming
+  const chatSaveTimer = useRef(null)
+  useEffect(() => {
+    clearTimeout(chatSaveTimer.current)
+    chatSaveTimer.current = setTimeout(() => saveToStorage('bf_chat_history', chatHistory), 600)
+    return () => clearTimeout(chatSaveTimer.current)
+  }, [chatHistory])
 
   // ── User Actions ──────────────────────────────────────────────────────────
   const updateUser = useCallback((updates) => {
@@ -178,6 +184,11 @@ export function AppProvider({ children }) {
     setChatHistory(prev => [...prev, { ...message, id: Date.now(), timestamp: new Date().toISOString() }])
   }, [])
 
+  // Update the content of an existing message in-place (used during streaming)
+  const updateChatMessage = useCallback((id, content) => {
+    setChatHistory(prev => prev.map(m => m.id === id ? { ...m, content } : m))
+  }, [])
+
   const clearChatHistory = useCallback(() => {
     setChatHistory([])
   }, [])
@@ -211,6 +222,7 @@ export function AppProvider({ children }) {
     addProgressEntry,
     deleteProgressEntry,
     addChatMessage,
+    updateChatMessage,
     clearChatHistory,
     setActiveTab,
   }

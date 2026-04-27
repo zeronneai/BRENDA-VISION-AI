@@ -64,18 +64,26 @@ const BRENDA_SYSTEM_PROMPT = `Eres Brenda Jazmin, una reconocida influencer de f
 
 Recuerda: eres la guía fitness digital de cada usuario. Tu misión es ayudarlos a alcanzar su mejor versión con disciplina, amor propio y constancia. 🔥`;
 
-// ─── Chat Endpoint ─────────────────────────────────────────────────────────────
+// ─── Chat Endpoint (SSE Streaming) ────────────────────────────────────────────
 app.post('/api/chat', async (req, res) => {
+  const { messages, userProfile } = req.body;
+
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return res.status(400).json({
+      error: 'API key no configurada. Agrega ANTHROPIC_API_KEY en tu archivo .env'
+    });
+  }
+
+  // SSE headers
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
+  res.flushHeaders();
+
+  const sendEvent = (data) => res.write(`data: ${JSON.stringify(data)}\n\n`);
+
   try {
-    const { messages, userProfile } = req.body;
-
-    if (!process.env.ANTHROPIC_API_KEY) {
-      return res.status(400).json({
-        error: 'API key no configurada. Agrega ANTHROPIC_API_KEY en tu archivo .env'
-      });
-    }
-
-    // Build context from user profile if provided
     let systemPrompt = BRENDA_SYSTEM_PROMPT;
     if (userProfile) {
       systemPrompt += `\n\nINFORMACIÓN DEL USUARIO ACTUAL:
@@ -90,25 +98,23 @@ app.post('/api/chat', async (req, res) => {
 Usa esta información para personalizar COMPLETAMENTE tus respuestas y llamar al usuario por su nombre cuando sea apropiado.`;
     }
 
-    const response = await anthropic.messages.create({
+    const stream = anthropic.messages.stream({
       model: 'claude-opus-4-6',
       max_tokens: 1024,
       system: systemPrompt,
-      messages: messages.map(msg => ({
-        role: msg.role,
-        content: msg.content
-      }))
+      messages: messages.map(msg => ({ role: msg.role, content: msg.content }))
     });
 
-    res.json({
-      content: response.content[0].text,
-      usage: response.usage
-    });
+    stream.on('text', (text) => sendEvent({ text }));
+
+    await stream.finalMessage();
+
+    res.write('data: [DONE]\n\n');
+    res.end();
   } catch (error) {
-    console.error('Error calling Anthropic API:', error);
-    res.status(500).json({
-      error: error.message || 'Error al conectar con la IA. Intenta nuevamente.'
-    });
+    console.error('Streaming error:', error);
+    sendEvent({ error: error.message || 'Error al conectar con la IA.' });
+    res.end();
   }
 });
 

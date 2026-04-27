@@ -15,12 +15,13 @@ const QUICK_PROMPTS = [
 ]
 
 export default function BrendaAI() {
-  const { user, chatHistory, addChatMessage, clearChatHistory, apiKeySet } = useApp()
+  const { user, chatHistory, addChatMessage, updateChatMessage, clearChatHistory, apiKeySet } = useApp()
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [showQuickPrompts, setShowQuickPrompts] = useState(chatHistory.length === 0)
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
+  const streamingIdRef = useRef(null)
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -35,6 +36,11 @@ export default function BrendaAI() {
 
     addChatMessage({ role: 'user', content: msg })
     setIsLoading(true)
+
+    // Add empty assistant message immediately — will be filled by stream
+    const assistantId = Date.now() + 1
+    streamingIdRef.current = assistantId
+    addChatMessage({ role: 'assistant', content: '', id: assistantId, timestamp: new Date().toISOString() })
 
     try {
       const history = [...chatHistory, { role: 'user', content: msg }]
@@ -61,23 +67,58 @@ export default function BrendaAI() {
         })
       })
 
-      const data = await res.json()
-
-      if (data.error) {
-        addChatMessage({
-          role: 'assistant',
-          content: `⚠️ ${data.error}\n\nPara activar Brenda IA, configura tu API key de Claude en el archivo \`.env\` del servidor.`
-        })
-      } else {
-        addChatMessage({ role: 'assistant', content: data.content })
+      if (!res.ok || !res.body) {
+        // Non-streaming error (e.g. 400 from missing API key)
+        const data = await res.json().catch(() => ({}))
+        updateChatMessage(assistantId, `⚠️ ${data.error || 'Error desconocido'}`)
+        setIsLoading(false)
+        return
       }
-    } catch (err) {
-      addChatMessage({
-        role: 'assistant',
-        content: '⚠️ No pude conectarme al servidor. Asegúrate de que el servidor esté corriendo en el puerto 3001.'
-      })
+
+      // Read SSE stream
+      const reader = res.body.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ''
+      let accumulated = ''
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        buffer += decoder.decode(value, { stream: true })
+
+        // Process complete SSE lines from buffer
+        const lines = buffer.split('\n')
+        buffer = lines.pop() // keep incomplete last line
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue
+          const payload = line.slice(6).trim()
+          if (payload === '[DONE]') break
+
+          try {
+            const parsed = JSON.parse(payload)
+            if (parsed.error) {
+              updateChatMessage(assistantId, `⚠️ ${parsed.error}`)
+              break
+            }
+            if (parsed.text) {
+              accumulated += parsed.text
+              updateChatMessage(assistantId, accumulated)
+            }
+          } catch {
+            // ignore malformed chunks
+          }
+        }
+      }
+    } catch {
+      updateChatMessage(
+        streamingIdRef.current,
+        '⚠️ No pude conectarme al servidor. Asegúrate de que el servidor esté corriendo.'
+      )
     } finally {
       setIsLoading(false)
+      streamingIdRef.current = null
     }
   }
 
@@ -147,10 +188,15 @@ export default function BrendaAI() {
         )}
 
         {chatHistory.map((msg, i) => (
-          <MessageBubble key={msg.id || i} message={msg} />
+          <MessageBubble
+            key={msg.id || i}
+            message={msg}
+            isStreaming={isLoading && msg.id === streamingIdRef.current}
+          />
         ))}
 
-        {isLoading && <TypingIndicator />}
+        {/* Typing indicator only while waiting for the first chunk */}
+        {isLoading && chatHistory.at(-1)?.content === '' && <TypingIndicator />}
         <div ref={messagesEndRef} />
       </div>
 
@@ -214,8 +260,11 @@ export default function BrendaAI() {
 }
 
 /* ── Message Bubble ─────────────────────────────────────────────────────── */
-function MessageBubble({ message }) {
+function MessageBubble({ message, isStreaming }) {
   const isUser = message.role === 'user'
+  const isEmpty = !message.content
+
+  if (isEmpty) return null // hide the placeholder until first chunk arrives
 
   return (
     <motion.div
@@ -231,10 +280,16 @@ function MessageBubble({ message }) {
       <div className={`max-w-[80%] px-4 py-3 ${isUser ? 'chat-bubble-user' : 'chat-bubble-ai'}`}>
         <p className="text-sm text-white leading-relaxed whitespace-pre-wrap">
           {formatMessage(message.content)}
+          {/* Blinking cursor while streaming */}
+          {isStreaming && (
+            <span className="inline-block w-0.5 h-4 bg-brand-pink ml-0.5 align-middle animate-pulse" />
+          )}
         </p>
-        <p className={`text-[10px] mt-1 ${isUser ? 'text-white/50' : 'text-gray-600'}`}>
-          {message.timestamp ? new Date(message.timestamp).toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' }) : ''}
-        </p>
+        {!isStreaming && (
+          <p className={`text-[10px] mt-1 ${isUser ? 'text-white/50' : 'text-gray-600'}`}>
+            {message.timestamp ? new Date(message.timestamp).toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' }) : ''}
+          </p>
+        )}
       </div>
     </motion.div>
   )
