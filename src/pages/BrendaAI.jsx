@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, Sparkles, Trash2, ChevronDown, Zap } from 'lucide-react'
 import { useApp } from '../context/AppContext'
+import { ENDPOINTS } from '../services/api'
 
 const QUICK_PROMPTS = [
   { label: '💪 Rutina para hoy', text: '¿Qué rutina me recomiendas para hoy?' },
@@ -48,7 +49,7 @@ export default function BrendaAI() {
         .filter(m => m.role === 'user' || m.role === 'assistant')
         .map(m => ({ role: m.role, content: m.content }))
 
-      const res = await fetch('/api/chat', {
+      const res = await fetch(ENDPOINTS.chat, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

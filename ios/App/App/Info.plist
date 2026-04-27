@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CAPACITOR_DEBUG</key>
+	<string>$(CAPACITOR_DEBUG)</string>
+
+	<!-- ── Bundle identity ─────────────────────────────────────────── -->
+	<key>CFBundleDevelopmentRegion</key>
+	<string>es</string>
+	<key>CFBundleDisplayName</key>
+	<string>Brenda Fitness</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+
+	<!-- ── Device requirements ─────────────────────────────────────── -->
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>MinimumOSVersion</key>
+	<string>16.0</string>
+
+	<!-- ── Orientation (portrait only — fitness app) ───────────────── -->
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+
+	<!-- ── UI ──────────────────────────────────────────────────────── -->
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
+	<key>UIStatusBarHidden</key>
+	<false/>
+
+	<!-- ── Permissions — required by App Store review ──────────────── -->
+	<key>NSCameraUsageDescription</key>
+	<string>Brenda Fitness usa la cámara para que puedas agregar fotos de tu progreso fitness.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Brenda Fitness accede a tus fotos para que puedas subir imágenes de tu progreso.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Brenda Fitness guarda fotos de tu progreso en tu biblioteca de fotos.</string>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>Brenda Fitness te envía recordatorios de entrenamiento y celebra tus logros de racha.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Brenda Fitness puede leer tus datos de actividad de Apple Health para complementar tu seguimiento de entrenamientos.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Brenda Fitness puede guardar tus entrenamientos en Apple Health.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Brenda Fitness usa el acelerómetro para detectar tu actividad física durante los entrenamientos.</string>
+
+	<!-- ── App Transport Security ───────────────────────────────────── -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>vercel.app</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+
+	<!-- ── Background modes ─────────────────────────────────────────── -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+
+	<!-- ── iTunes metadata ──────────────────────────────────────────── -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+</dict>
+</plist>

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react'
+import { ENDPOINTS } from '../services/api'
 
 const AppContext = createContext(null)
 
@@ -59,7 +60,7 @@ export function AppProvider({ children }) {
 
   // Check if server is configured with API key
   useEffect(() => {
-    fetch('/api/chat', {
+    fetch(ENDPOINTS.chat, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: [{ role: 'user', content: 'ping' }] })
