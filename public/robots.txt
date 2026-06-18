@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: add your production domain once deployed on Vercel
+# Sitemap: https://your-domain.vercel.app/sitemap.xml
