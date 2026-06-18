@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* offset for sticky navbar when jumping to anchors */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-ink text-white font-sans antialiased;
+    /* Subtle magenta aurora-like radial gradients on the background */
+    background-image:
+      radial-gradient(50rem 50rem at 80% -10%, rgba(255, 26, 107, 0.12), transparent 60%),
+      radial-gradient(45rem 45rem at -10% 20%, rgba(233, 30, 99, 0.1), transparent 55%),
+      radial-gradient(40rem 40rem at 50% 120%, rgba(198, 255, 0, 0.05), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  /* Headlines use the condensed display font */
+  h1, h2, h3 {
+    font-family: theme('fontFamily.display');
+    @apply tracking-wide;
+  }
+
+  ::selection {
+    background: rgba(233, 30, 99, 0.4);
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card */
+  .glass {
+    @apply rounded-3xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md;
+  }
+
+  /* Section vertical rhythm */
+  .section {
+    @apply mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 md:py-28;
+  }
+
+  /* Gradient magenta text accent */
+  .text-gradient {
+    @apply bg-gradient-to-r from-magenta-bright to-magenta bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep scroll (for horizontal carousels) */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,14 +1,23 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
+dist-ssr/
+
+# Local env files
 .env
-.env.example
 .env.*
 *.local
-.DS_Store
 
-# Xcode / iOS generated files (rebuild with: npx cap add ios)
-ios/App/Pods/
-ios/App/App.xcworkspace/xcuserdata/
-ios/App/*.xcworkspace/xcuserdata/
-ios/App/DerivedData/
-*.xcuserstate
+# Editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.sw?
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
