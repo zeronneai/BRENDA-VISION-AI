@@ -1,8 +1,16 @@
-// Placeholder app shell — sections are assembled in a later commit.
+import { ToastProvider } from './components/Toast'
+import Navbar from './sections/Navbar'
+import Hero from './sections/Hero'
+import StatsBar from './sections/StatsBar'
+
 export default function App() {
   return (
-    <main className="grid min-h-screen place-items-center">
-      <h1 className="text-6xl text-gradient">BOOTY ALARM</h1>
-    </main>
+    <ToastProvider>
+      <Navbar />
+      <main>
+        <Hero />
+        <StatsBar />
+      </main>
+    </ToastProvider>
   )
 }
