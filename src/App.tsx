@@ -8,6 +8,8 @@ import Premium from './sections/Premium'
 import Pricing from './sections/Pricing'
 import Testimonials from './sections/Testimonials'
 import Faq from './sections/Faq'
+import FinalCta from './sections/FinalCta'
+import Footer from './sections/Footer'
 
 export default function App() {
   return (
@@ -22,7 +24,9 @@ export default function App() {
         <Pricing />
         <Testimonials />
         <Faq />
+        <FinalCta />
       </main>
+      <Footer />
     </ToastProvider>
   )
 }
