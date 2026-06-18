@@ -5,6 +5,9 @@ import StatsBar from './sections/StatsBar'
 import HowItWorks from './sections/HowItWorks'
 import Screenshots from './sections/Screenshots'
 import Premium from './sections/Premium'
+import Pricing from './sections/Pricing'
+import Testimonials from './sections/Testimonials'
+import Faq from './sections/Faq'
 
 export default function App() {
   return (
@@ -16,6 +19,9 @@ export default function App() {
         <HowItWorks />
         <Screenshots />
         <Premium />
+        <Pricing />
+        <Testimonials />
+        <Faq />
       </main>
     </ToastProvider>
   )
