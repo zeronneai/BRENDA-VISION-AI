@@ -1,7 +1,7 @@
 import { optimizedVideo } from '../lib/cloudinary'
 import { VIDEOS } from '../lib/images'
 
-const { src, poster } = optimizedVideo(VIDEOS.brenda_about, { ratio: '4:5', width: 720 })
+const { src, poster } = optimizedVideo(VIDEOS.brenda_about, { ratio: '4:5', width: 800 })
 
 interface BrendaVideoProps {
   className?: string
@@ -15,7 +15,7 @@ interface BrendaVideoProps {
 export default function BrendaVideo({ className = '' }: BrendaVideoProps) {
   return (
     <video
-      className={`rounded-2xl object-cover ${className}`}
+      className={`block h-full w-full rounded-2xl bg-ink object-cover ${className}`}
       style={{ aspectRatio: '4 / 5' }}
       src={src}
       poster={poster}
@@ -23,7 +23,7 @@ export default function BrendaVideo({ className = '' }: BrendaVideoProps) {
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="auto"
       controls={false}
       aria-label="Brenda Jazmín entrenando"
     />

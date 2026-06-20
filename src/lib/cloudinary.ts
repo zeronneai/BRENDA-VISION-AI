@@ -17,14 +17,15 @@ export function cld(url: string, transforms: string): string {
  * - `f_auto`  → best format per browser (e.g. WebM/AV1 where supported)
  * - `vc_auto` → best video codec
  * - `q_auto`  → automatic quality (smaller files, no visible loss)
- * - `c_fill,ar_<ratio>,g_auto` → crop to the target aspect ratio, smart gravity
+ * - `c_fill,ar_<ratio>` → crop to the target aspect ratio (center gravity — free,
+ *   no AI add-on required, unlike g_auto)
  * - `w_<width>` → cap resolution so we never ship more pixels than needed
  */
 export function optimizedVideo(
   baseUrl: string,
   { ratio = '4:5', width = 720 }: { ratio?: string; width?: number } = {},
 ): { src: string; poster: string } {
-  const transforms = `f_auto,vc_auto,q_auto,c_fill,g_auto,ar_${ratio},w_${width}`
+  const transforms = `f_auto,vc_auto,q_auto,c_fill,ar_${ratio},w_${width}`
   const src = cld(baseUrl, transforms)
   // Poster: first frame as an optimized JPG (instant first paint while loading)
   const poster = cld(baseUrl, `${transforms},so_0`).replace(/\.[a-z0-9]+$/i, '.jpg')
