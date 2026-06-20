@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
-import IPhoneFrame from '../components/IPhoneFrame'
-import ImagePlaceholder from '../components/ImagePlaceholder'
+import AlarmHeroAnimated from '../components/AlarmHeroAnimated'
 import StoreButtons from '../components/StoreButtons'
 import { fadeUp, stagger } from '../lib/motion'
 
@@ -42,16 +41,8 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           className="order-first lg:order-last"
         >
-          <div className="animate-float">
-            <IPhoneFrame>
-              {/* TODO: Replace src with Cloudinary URL */}
-              <ImagePlaceholder
-                imageKey="screenshot_alarm_hero"
-                label="📱 SCREENSHOT 1 — ALARMA HERO"
-                rounded={false}
-                className="h-full w-full"
-              />
-            </IPhoneFrame>
+          <div className="animate-float motion-reduce:animate-none">
+            <AlarmHeroAnimated />
           </div>
         </motion.div>
       </div>
