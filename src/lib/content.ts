@@ -92,7 +92,7 @@ export const PLANS: Plan[] = [
     badge: 'FLEXIBLE',
     badgeAccent: false,
     name: 'PLAN MENSUAL',
-    price: '$99 MXN',
+    price: '$99 USD',
     period: '/mes',
     benefits: [
       'Acceso completo a Brenda Fitness',
@@ -107,10 +107,10 @@ export const PLANS: Plan[] = [
     badge: '⭐ MEJOR PRECIO',
     badgeAccent: true,
     name: 'PLAN ANUAL',
-    price: '$999 MXN',
+    price: '$999 USD',
     period: '/año',
-    strikethrough: '$1,188 MXN',
-    savings: 'Ahorra $189 MXN (2 meses gratis)',
+    strikethrough: '$1,188 USD',
+    savings: 'Ahorra $189 USD (2 meses gratis)',
     benefits: [
       'Todo lo del plan mensual',
       '2 meses gratis',
