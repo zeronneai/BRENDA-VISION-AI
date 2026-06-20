@@ -10,12 +10,18 @@
  */
 export const IMAGES = {
   // SCREENSHOTS DE LA APP (ratio 9:19.5)
-  screenshot_alarm_hero: '', // TODO: Cloudinary URL
-  screenshot_camara_squats: '', // TODO: Cloudinary URL
-  screenshot_entrena: '', // TODO: Cloudinary URL
-  screenshot_nutricion_planes: '', // TODO: Cloudinary URL
-  screenshot_nutricion_recetas: '', // TODO: Cloudinary URL
-  screenshot_nutricion_suplementos: '', // TODO: Cloudinary URL
+  screenshot_alarm_hero:
+    'https://res.cloudinary.com/dsprn0ew4/image/upload/v1781972400/WhatsApp_Image_2026-06-03_at_2.44.57_PM_3_nsrohy.jpg',
+  screenshot_camara_squats:
+    'https://res.cloudinary.com/dsprn0ew4/image/upload/v1781972400/WhatsApp_Image_2026-06-03_at_2.44.57_PM_6_ubdf7r.jpg',
+  screenshot_entrena:
+    'https://res.cloudinary.com/dsprn0ew4/image/upload/v1781972400/WhatsApp_Image_2026-06-03_at_2.44.57_PM_1_tm2xnj.jpg',
+  screenshot_nutricion_planes:
+    'https://res.cloudinary.com/dsprn0ew4/image/upload/v1781972400/WhatsApp_Image_2026-06-03_at_2.44.57_PM_2_x5l7lt.jpg',
+  screenshot_nutricion_recetas:
+    'https://res.cloudinary.com/dsprn0ew4/image/upload/v1781972400/IMG_2198_nbda3j.png',
+  screenshot_nutricion_suplementos:
+    'https://res.cloudinary.com/dsprn0ew4/image/upload/v1781972400/WhatsApp_Image_2026-06-03_at_2.44.57_PM_5_lsmkwc.jpg',
 
   // FOTOS DE BRENDA (ratio 1:1 o 4:5)
   brenda_hero: '', // TODO: Cloudinary URL
