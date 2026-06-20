@@ -35,3 +35,16 @@ export const IMAGES = {
 } as const
 
 export type ImageKey = keyof typeof IMAGES
+
+/**
+ * Video assets (Cloudinary). The base/original URL is stored here; on-the-fly
+ * web optimization (format, codec, quality, crop, width) is applied at render
+ * time in the player component, so this stays a plain source URL.
+ */
+export const VIDEOS = {
+  // Brenda Jazmín — Premium section (delivered cropped to 4:5)
+  brenda_about:
+    'https://res.cloudinary.com/dsprn0ew4/video/upload/v1777921046/BRENDA_JAZMIN_-_SESSION_1_-_Trim_hiegjf.mp4',
+} as const
+
+export type VideoKey = keyof typeof VIDEOS

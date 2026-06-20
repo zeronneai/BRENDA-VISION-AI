@@ -1,4 +1,4 @@
-import ImagePlaceholder from '../components/ImagePlaceholder'
+import BrendaVideo from '../components/BrendaVideo'
 import SectionHeading from '../components/SectionHeading'
 import SectionReveal from '../components/SectionReveal'
 import { PREMIUM_FEATURES } from '../lib/content'
@@ -12,15 +12,9 @@ export default function Premium() {
       />
 
       <div className="mt-14 grid items-center gap-10 lg:grid-cols-2">
-        {/* Brenda photo (4:5) */}
+        {/* Brenda video (4:5) */}
         <SectionReveal className="mx-auto w-full max-w-md">
-          {/* TODO: Replace src with Cloudinary URL */}
-          <ImagePlaceholder
-            imageKey="brenda_about"
-            label="📷 FOTO DE BRENDA (4:5)"
-            ratio="4 / 5"
-            className="w-full shadow-glow"
-          />
+          <BrendaVideo className="w-full shadow-glow" />
         </SectionReveal>
 
         {/* 2x3 feature grid */}
