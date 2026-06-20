@@ -10,6 +10,6 @@ export const ANDROID_AVAILABLE = STORE_LINKS.google_play !== '#'
 export const EXTERNAL_LINKS = {
   privacy: 'https://ecobrenda.vercel.app/privacy',
   terms: 'https://ecobrenda.vercel.app/terms',
-  instagram: '#', // TODO: Instagram de Brenda
-  contact_email: 'p.rootsagency@gmail.com',
+  instagram: 'https://www.instagram.com/brendaa_jazmin/',
+  contact_email: 'primostudio.us@gmail.com',
 } as const
