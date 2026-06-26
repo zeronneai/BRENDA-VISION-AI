@@ -28,6 +28,7 @@ function Cta({ flow, platform, onClose }: { flow: InstallFlow; platform: Platfor
   const reduce = useReducedMotion()
   const { showToast } = useToast()
   const apkPending = platform === 'android' && !ANDROID_APK_READY
+  const isApkDownload = platform === 'android' && ANDROID_APK_READY
 
   const pulse = reduce
     ? {}
@@ -44,6 +45,20 @@ function Cta({ flow, platform, onClose }: { flow: InstallFlow; platform: Platfor
         >
           {flow.cta.label}
         </Button>
+      ) : isApkDownload ? (
+        // Download the .apk in place (GitHub serves it as an attachment), so we
+        // don't open an empty new tab. `download` hints the filename.
+        <LinkButton
+          href={flow.cta.href}
+          variant={flow.cta.variant}
+          size="lg"
+          className="w-full"
+          onClick={onClose}
+          download="booty-alarm.apk"
+          rel="noopener"
+        >
+          {flow.cta.label}
+        </LinkButton>
       ) : (
         <LinkButton
           href={flow.cta.href}

@@ -9,9 +9,8 @@ export const STORE_LINKS = {
   // PWA web (fallback iOS)
   ios_pwa: 'https://ecobrenda.vercel.app',
 
-  // Android APK directo (URL temporal hasta que esté Google Play)
-  // TODO: Reemplazar con la URL real cuando el APK esté generado.
-  android_apk: 'PLACEHOLDER_PENDING_APK_URL',
+  // Android APK directo (hasta que esté en Google Play)
+  android_apk: 'https://github.com/zeronneai/ECOBRENDA/releases/download/v1.0.0/booty-alarm.apk',
 
   // Android Google Play oficial (placeholder)
   android_play_store: 'https://play.google.com/store/apps/details?id=com.zeronne.bootyalarm',
@@ -27,7 +26,8 @@ export const PLATFORM_STATUS = {
 export const TESTFLIGHT_APP_STORE_URL = 'https://apps.apple.com/app/testflight/id899247664'
 
 /** Whether the real Android APK URL has been wired in yet. */
-export const ANDROID_APK_READY = STORE_LINKS.android_apk !== 'PLACEHOLDER_PENDING_APK_URL'
+export const ANDROID_APK_READY =
+  (STORE_LINKS.android_apk as string) !== 'PLACEHOLDER_PENDING_APK_URL'
 
 export const EXTERNAL_LINKS = {
   privacy: 'https://ecobrenda.vercel.app/privacy',
