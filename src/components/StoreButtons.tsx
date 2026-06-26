@@ -2,7 +2,7 @@ import { Apple, Play } from 'lucide-react'
 import { LinkButton } from './Button'
 import Button from './Button'
 import { useToast } from './Toast'
-import { ANDROID_AVAILABLE, STORE_LINKS } from '../lib/links'
+import { ANDROID_APK_READY, STORE_LINKS } from '../lib/links'
 
 interface StoreButtonsProps {
   size?: 'md' | 'lg'
@@ -25,7 +25,7 @@ export default function StoreButtons({ size = 'md', className = '', fullWidth = 
   return (
     <div className={`flex flex-col gap-3 sm:flex-row ${className}`}>
       <LinkButton
-        href={STORE_LINKS.app_store}
+        href={STORE_LINKS.ios_app_store}
         external
         variant="primary"
         size={size}
@@ -36,9 +36,9 @@ export default function StoreButtons({ size = 'md', className = '', fullWidth = 
       </LinkButton>
 
       <div className={`flex flex-col items-center gap-1 ${fullWidth ? 'w-full' : ''}`}>
-        {ANDROID_AVAILABLE ? (
+        {ANDROID_APK_READY ? (
           <LinkButton
-            href={STORE_LINKS.google_play}
+            href={STORE_LINKS.android_play_store}
             external
             variant="outline"
             size={size}
@@ -59,7 +59,7 @@ export default function StoreButtons({ size = 'md', className = '', fullWidth = 
             DESCARGAR EN GOOGLE PLAY
           </Button>
         )}
-        {!ANDROID_AVAILABLE && (
+        {!ANDROID_APK_READY && (
           <span className="text-xs font-medium uppercase tracking-wider text-muted">Próximamente</span>
         )}
       </div>

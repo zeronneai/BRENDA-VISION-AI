@@ -43,7 +43,7 @@ export default function Navbar() {
 
         {/* CTA (desktop) */}
         <div className="hidden md:block">
-          <LinkButton href={STORE_LINKS.app_store} external size="md">
+          <LinkButton href={STORE_LINKS.ios_app_store} external size="md">
             DESCARGAR
           </LinkButton>
         </div>
@@ -77,7 +77,7 @@ export default function Navbar() {
             ))}
             <li className="mt-2">
               <LinkButton
-                href={STORE_LINKS.app_store}
+                href={STORE_LINKS.ios_app_store}
                 external
                 size="md"
                 className="w-full"
