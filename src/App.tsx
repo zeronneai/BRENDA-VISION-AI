@@ -1,4 +1,5 @@
 import { ToastProvider } from './components/Toast'
+import { InstallModalProvider } from './components/install/InstallModalProvider'
 import Navbar from './sections/Navbar'
 import Hero from './sections/Hero'
 import StatsBar from './sections/StatsBar'
@@ -14,19 +15,21 @@ import Footer from './sections/Footer'
 export default function App() {
   return (
     <ToastProvider>
-      <Navbar />
-      <main>
-        <Hero />
-        <StatsBar />
-        <HowItWorks />
-        <Screenshots />
-        <Premium />
-        <Pricing />
-        <Testimonials />
-        <Faq />
-        <FinalCta />
-      </main>
-      <Footer />
+      <InstallModalProvider>
+        <Navbar />
+        <main>
+          <Hero />
+          <StatsBar />
+          <HowItWorks />
+          <Screenshots />
+          <Premium />
+          <Pricing />
+          <Testimonials />
+          <Faq />
+          <FinalCta />
+        </main>
+        <Footer />
+      </InstallModalProvider>
     </ToastProvider>
   )
 }
