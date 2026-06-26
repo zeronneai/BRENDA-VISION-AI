@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import {
   CheckCircle2,
   Compass,
@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { LinkButton } from '../Button'
-import { stagger, viewportOnce } from '../../lib/motion'
+import { stagger } from '../../lib/motion'
 import type { InstallFlow, StepIcon } from '../../lib/install'
 
 const ICONS: Record<StepIcon, LucideIcon> = {
@@ -35,6 +35,7 @@ const stepVariants = {
 
 /** Renders a single install flow: optional warning, numbered steps, perks, footnotes. */
 export default function InstallFlowView({ flow }: { flow: InstallFlow }) {
+  const reduce = useReducedMotion()
   return (
     <div>
       {flow.warning && (
@@ -44,12 +45,11 @@ export default function InstallFlowView({ flow }: { flow: InstallFlow }) {
         </div>
       )}
 
-      {/* Numbered steps (stagger in) */}
+      {/* Numbered steps (stagger in on mount — modal content is always in view) */}
       <motion.ol
         variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnce}
+        initial={reduce ? false : 'hidden'}
+        animate="visible"
         className="space-y-4"
       >
         {flow.steps.map((step, i) => {

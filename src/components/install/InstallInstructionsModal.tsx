@@ -123,7 +123,8 @@ export default function InstallInstructionsModal({
       )}
 
       <div className="mt-6">
-        <InstallFlowView flow={flow} />
+        {/* key forces a clean remount (and animation replay) when the tab changes */}
+        <InstallFlowView key={isIos ? iosTab : 'android'} flow={flow} />
       </div>
     </ModalShell>
   )
