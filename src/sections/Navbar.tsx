@@ -1,10 +1,11 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { LinkButton } from '../components/Button'
+import Button from '../components/Button'
+import { useInstall } from '../components/install/InstallModalProvider'
 import { NAV_LINKS } from '../lib/content'
-import { STORE_LINKS } from '../lib/links'
 
 export default function Navbar() {
+  const { openSelector } = useInstall()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -43,9 +44,9 @@ export default function Navbar() {
 
         {/* CTA (desktop) */}
         <div className="hidden md:block">
-          <LinkButton href={STORE_LINKS.ios_app_store} external size="md">
+          <Button size="md" onClick={openSelector}>
             DESCARGAR
-          </LinkButton>
+          </Button>
         </div>
 
         {/* Hamburger (mobile) */}
@@ -76,15 +77,16 @@ export default function Navbar() {
               </li>
             ))}
             <li className="mt-2">
-              <LinkButton
-                href={STORE_LINKS.ios_app_store}
-                external
+              <Button
                 size="md"
                 className="w-full"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false)
+                  openSelector()
+                }}
               >
                 DESCARGAR
-              </LinkButton>
+              </Button>
             </li>
           </ul>
         </div>

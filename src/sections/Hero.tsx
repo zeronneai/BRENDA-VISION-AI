@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import AlarmHeroAnimated from '../components/AlarmHeroAnimated'
+import BetaBadge from '../components/BetaBadge'
 import StoreButtons from '../components/StoreButtons'
 import { fadeUp, stagger } from '../lib/motion'
 
@@ -10,6 +11,10 @@ export default function Hero() {
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-2">
         {/* Copy */}
         <motion.div variants={stagger} initial="hidden" animate="visible" className="text-center lg:text-left">
+          <motion.div variants={fadeUp} className="mb-6 flex justify-center lg:justify-start">
+            <BetaBadge />
+          </motion.div>
+
           <motion.h1
             variants={fadeUp}
             className="text-6xl leading-[0.9] sm:text-7xl md:text-8xl"

@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react'
+import BetaBadge from '../components/BetaBadge'
 import SectionHeading from '../components/SectionHeading'
 import SectionReveal from '../components/SectionReveal'
 import StoreButtons from '../components/StoreButtons'
@@ -11,6 +12,10 @@ export default function Pricing() {
         title="ELIGE TU PLAN"
         subtitle="Suscríbete desde la app. Cancela cuando quieras."
       />
+
+      <SectionReveal className="mt-6 flex justify-center">
+        <BetaBadge />
+      </SectionReveal>
 
       <div className="mt-14 grid items-stretch gap-6 md:grid-cols-2">
         {PLANS.map((plan, i) => (
@@ -57,7 +62,7 @@ export default function Pricing() {
 
               {/* CTAs */}
               <div className="mt-7">
-                <StoreButtons fullWidth className="sm:flex-col" />
+                <StoreButtons fullWidth hideHelp className="sm:flex-col" />
               </div>
             </div>
           </SectionReveal>
