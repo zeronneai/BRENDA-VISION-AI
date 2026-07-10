@@ -10,7 +10,7 @@ export const STORE_LINKS = {
   ios_pwa: 'https://ecobrenda.vercel.app',
 
   // Android APK directo (hasta que esté en Google Play)
-  android_apk: 'https://github.com/zeronneai/ECOBRENDA/releases/download/v1.0.0/booty-alarm.apk',
+  android_apk: 'https://github.com/zeronneai/ECOBRENDA/releases/download/v1.1.0/booty-alarm.apk',
 
   // Android Google Play oficial (placeholder)
   android_play_store: 'https://play.google.com/store/apps/details?id=com.zeronne.bootyalarm',
