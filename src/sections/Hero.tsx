@@ -4,8 +4,11 @@ import AlarmHeroAnimated from '../components/AlarmHeroAnimated'
 import BetaBadge from '../components/BetaBadge'
 import StoreButtons from '../components/StoreButtons'
 import { fadeUp, stagger } from '../lib/motion'
+import { useLang, useT } from '../lib/i18n'
 
 export default function Hero() {
+  const { lang } = useLang()
+  const t = useT()
   return (
     <section id="top" className="relative flex min-h-screen items-center overflow-hidden pt-24 pb-16">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-2">
@@ -19,19 +22,28 @@ export default function Hero() {
             variants={fadeUp}
             className="text-6xl leading-[0.9] sm:text-7xl md:text-8xl"
           >
-            DESPIERTA<br />HACIENDO<br />
-            <span className="text-gradient">SQUATS.</span>
+            {lang === 'es' ? (
+              <>
+                DESPIERTA<br />HACIENDO<br />
+                <span className="text-gradient">SQUATS.</span>
+              </>
+            ) : (
+              <>
+                WAKE UP<br />DOING<br />
+                <span className="text-gradient">SQUATS.</span>
+              </>
+            )}
           </motion.h1>
 
           <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-lg text-lg text-muted sm:text-xl lg:mx-0">
-            La única alarma que NO se apaga hasta que tu cuerpo se mueve.
+            {t('hero_sub')}
           </motion.p>
 
           <motion.p
             variants={fadeUp}
             className="mt-4 text-2xl font-bold tracking-wide text-magenta-bright sm:text-3xl"
           >
-            ¿O NO PUEDES? 🍑
+            {t('hero_tagline')}
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-9 flex justify-center lg:justify-start">
@@ -55,7 +67,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       <a
         href="#como-funciona"
-        aria-label="Bajar"
+        aria-label={t('hero_scroll')}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted"
       >
         <ChevronDown className="h-7 w-7 animate-scroll-hint" />

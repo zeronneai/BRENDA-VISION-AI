@@ -1,6 +1,7 @@
 import { Apple, Play, Wrench } from 'lucide-react'
 import Button from './Button'
 import { useInstall } from './install/InstallModalProvider'
+import { useT } from '../lib/i18n'
 
 interface StoreButtonsProps {
   size?: 'md' | 'lg'
@@ -26,6 +27,7 @@ export default function StoreButtons({
   hideHelp = false,
 }: StoreButtonsProps) {
   const { openInstall, openSelector } = useInstall()
+  const t = useT()
   const widthClass = fullWidth ? 'w-full' : ''
 
   return (
@@ -39,7 +41,7 @@ export default function StoreButtons({
           onClick={() => openInstall('android')}
         >
           <Play className="h-5 w-5" aria-hidden />
-          DESCARGAR EN GOOGLE PLAY
+          {t('btn_google_play')}
         </Button>
 
         {/* iOS — App Store in review; tap opens PWA-install instructions */}
@@ -48,10 +50,10 @@ export default function StoreButtons({
           size={size}
           className={widthClass}
           onClick={() => openInstall('ios')}
-          aria-label="Próximamente en App Store — ver cómo instalarla mientras tanto"
+          aria-label={t('btn_ios_aria')}
         >
           <Apple className="h-5 w-5" aria-hidden />
-          PRÓXIMAMENTE EN APP STORE
+          {t('btn_app_store_soon')}
         </Button>
       </div>
 
@@ -62,7 +64,7 @@ export default function StoreButtons({
           className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-magenta-bright"
         >
           <Wrench className="h-4 w-4" aria-hidden />
-          ¿Cómo instalar?
+          {t('btn_how_install')}
         </button>
       )}
     </div>

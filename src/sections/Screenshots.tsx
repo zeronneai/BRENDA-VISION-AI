@@ -2,19 +2,21 @@ import IPhoneFrame from '../components/IPhoneFrame'
 import ImagePlaceholder from '../components/ImagePlaceholder'
 import SectionHeading from '../components/SectionHeading'
 import SectionReveal from '../components/SectionReveal'
-import { SCREENSHOTS } from '../lib/content'
+import { getScreenshots } from '../lib/content'
+import { useLang, useT } from '../lib/i18n'
 
 export default function Screenshots() {
+  const { lang } = useLang()
+  const t = useT()
+  const screenshots = getScreenshots(lang)
+
   return (
     <section className="section">
-      <SectionHeading
-        title="ASÍ SE VE BOOTY ALARM"
-        subtitle="Diseñada para que la abras todos los días."
-      />
+      <SectionHeading title={t('shots_title')} subtitle={t('shots_sub')} />
 
       {/* Horizontal scroll on mobile, grid on desktop */}
       <div className="mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 no-scrollbar md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-6">
-        {SCREENSHOTS.map((shot, i) => (
+        {screenshots.map((shot, i) => (
           <SectionReveal
             key={shot.image}
             delay={(i % 6) * 0.06}
@@ -22,10 +24,10 @@ export default function Screenshots() {
           >
             <div className="flex flex-col items-center">
               <IPhoneFrame className="max-w-[200px]">
-                {/* TODO: Replace src with Cloudinary URL */}
                 <ImagePlaceholder
                   imageKey={shot.image}
                   label={shot.placeholder}
+                  alt={shot.label}
                   rounded={false}
                   className="h-full w-full"
                 />

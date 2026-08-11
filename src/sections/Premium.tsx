@@ -1,15 +1,17 @@
 import BrendaVideo from '../components/BrendaVideo'
 import SectionHeading from '../components/SectionHeading'
 import SectionReveal from '../components/SectionReveal'
-import { PREMIUM_FEATURES } from '../lib/content'
+import { getPremiumFeatures } from '../lib/content'
+import { useLang, useT } from '../lib/i18n'
 
 export default function Premium() {
+  const { lang } = useLang()
+  const t = useT()
+  const features = getPremiumFeatures(lang)
+
   return (
     <section id="premium" className="section">
-      <SectionHeading
-        title="DESBLOQUEA BRENDA FITNESS"
-        subtitle="El método completo de Brenda Jazmín para transformar tu cuerpo."
-      />
+      <SectionHeading title={t('premium_title')} subtitle={t('premium_sub')} />
 
       <div className="mt-14 grid items-center gap-10 lg:grid-cols-2">
         {/* Brenda video (4:5) */}
@@ -19,7 +21,7 @@ export default function Premium() {
 
         {/* 2x3 feature grid */}
         <div className="grid gap-4 sm:grid-cols-2">
-          {PREMIUM_FEATURES.map((feature, i) => (
+          {features.map((feature, i) => (
             <SectionReveal key={feature.title} delay={(i % 2) * 0.08}>
               <div className="glass h-full p-5 transition-all duration-300 hover:scale-[1.02] hover:border-magenta/40 hover:shadow-glow">
                 <div className="text-3xl">{feature.emoji}</div>

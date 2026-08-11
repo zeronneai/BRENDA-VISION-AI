@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import type { TargetAndTransition, Transition } from 'framer-motion'
 import { BatteryFull, BellOff, Signal, Wifi } from 'lucide-react'
+import { useT } from '../lib/i18n'
 
 /**
  * Living, animated reproduction of the app's alarm screen — used in the Hero
@@ -11,6 +12,7 @@ import { BatteryFull, BellOff, Signal, Wifi } from 'lucide-react'
  */
 export default function AlarmHeroAnimated() {
   const reduce = useReducedMotion()
+  const t = useT()
 
   // Helpers: return the animate/transition props only when motion is allowed,
   // so reduced-motion users get a still (but correct-looking) screen.
@@ -122,8 +124,8 @@ export default function AlarmHeroAnimated() {
 
         {/* ── Description (static) ──────────────────────────────── */}
         <p className="mt-8 px-1 text-[13px] leading-snug text-white/80">
-          No se apaga hasta que completes <b className="font-bold text-white">10 squats</b>. La cámara los
-          cuenta.
+          {t('alarm_desc_pre')} <b className="font-bold text-white">{t('alarm_desc_bold')}</b>
+          {t('alarm_desc_post')}
         </p>
 
         {/* ── Pulsing pill button ───────────────────────────────── */}
@@ -142,12 +144,12 @@ export default function AlarmHeroAnimated() {
             infinite({ duration: 1.5 }),
           )}
         >
-          A DARLE 💪
+          {t('alarm_btn')}
         </motion.div>
 
         {/* ── Footnote (static) ─────────────────────────────────── */}
         <small className="text-[9px] leading-tight text-white/40">
-          En iOS la app debe estar abierta · en Android suena en segundo plano
+          {t('alarm_footnote')}
         </small>
       </div>
     </div>

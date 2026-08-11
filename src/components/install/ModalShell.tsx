@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
+import { useT } from '../../lib/i18n'
 
 interface ModalShellProps {
   isOpen: boolean
@@ -31,6 +32,7 @@ export default function ModalShell({
   maxWidth = 'max-w-lg',
 }: ModalShellProps) {
   const reduce = useReducedMotion()
+  const t = useT()
   const panelRef = useRef<HTMLDivElement>(null)
   const lastFocused = useRef<HTMLElement | null>(null)
 
@@ -111,7 +113,7 @@ export default function ModalShell({
             <button
               type="button"
               onClick={onClose}
-              aria-label="Cerrar"
+              aria-label={t('modal_close')}
               className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/5 text-muted transition-colors hover:bg-white/10 hover:text-white"
             >
               <X className="h-5 w-5" />

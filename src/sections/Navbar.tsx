@@ -1,13 +1,19 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import Button from '../components/Button'
+import LanguageToggle from '../components/LanguageToggle'
 import { useInstall } from '../components/install/InstallModalProvider'
-import { NAV_LINKS } from '../lib/content'
+import { getNavLinks } from '../lib/content'
+import { useLang, useT } from '../lib/i18n'
 
 export default function Navbar() {
   const { openSelector } = useInstall()
+  const { lang } = useLang()
+  const t = useT()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+
+  const navLinks = getNavLinks(lang)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -24,13 +30,13 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
         {/* Logo */}
-        <a href="#top" className="text-2xl tracking-wide text-white" aria-label="Booty Alarm — inicio">
+        <a href="#top" className="text-2xl tracking-wide text-white" aria-label="Booty Alarm">
           BOOTY <span className="text-gradient">ALARM</span>
         </a>
 
         {/* Center links (desktop) */}
         <ul className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
@@ -42,30 +48,36 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA (desktop) */}
-        <div className="hidden md:block">
-          <Button size="md" onClick={openSelector}>
-            DESCARGAR
-          </Button>
-        </div>
+        {/* Right side */}
+        <div className="flex items-center gap-3">
+          {/* Language toggle — visible on web and mobile */}
+          <LanguageToggle />
 
-        {/* Hamburger (mobile) */}
-        <button
-          type="button"
-          className="text-white md:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-          aria-expanded={open}
-        >
-          {open ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
-        </button>
+          {/* CTA (desktop) */}
+          <div className="hidden md:block">
+            <Button size="md" onClick={openSelector}>
+              {t('nav_download')}
+            </Button>
+          </div>
+
+          {/* Hamburger (mobile) */}
+          <button
+            type="button"
+            className="text-white md:hidden"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? t('nav_close_menu') : t('nav_open_menu')}
+            aria-expanded={open}
+          >
+            {open ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
       {open && (
         <div className="border-t border-white/[0.08] bg-ink/95 backdrop-blur-md md:hidden">
           <ul className="flex flex-col gap-1 px-5 py-4">
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
@@ -85,7 +97,7 @@ export default function Navbar() {
                   openSelector()
                 }}
               >
-                DESCARGAR
+                {t('nav_download')}
               </Button>
             </li>
           </ul>

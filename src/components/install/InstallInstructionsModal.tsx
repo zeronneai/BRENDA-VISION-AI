@@ -2,13 +2,9 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { LinkButton } from '../Button'
 import ModalShell from './ModalShell'
 import InstallFlowView from './InstallFlowView'
-import {
-  ANDROID_CONTENT,
-  ANDROID_FLOW,
-  IOS_CONTENT,
-  IOS_PWA_FLOW,
-} from '../../lib/install'
+import { getFlow, getPlatformContent } from '../../lib/install'
 import type { Platform } from '../../lib/install'
+import { useLang, useT } from '../../lib/i18n'
 
 interface InstallInstructionsModalProps {
   isOpen: boolean
@@ -26,7 +22,8 @@ const TITLE_ID = 'install-modal-title'
  */
 function Cta({ platform, onClose }: { platform: Platform; onClose: () => void }) {
   const reduce = useReducedMotion()
-  const flow = platform === 'ios' ? IOS_PWA_FLOW : ANDROID_FLOW
+  const { lang } = useLang()
+  const flow = getFlow(platform, lang)
 
   const pulse = reduce
     ? {}
@@ -58,9 +55,11 @@ export default function InstallInstructionsModal({
   onClose,
   platform,
 }: InstallInstructionsModalProps) {
+  const { lang } = useLang()
+  const t = useT()
   const isIos = platform === 'ios'
-  const content = isIos ? IOS_CONTENT : ANDROID_CONTENT
-  const flow = isIos ? IOS_PWA_FLOW : ANDROID_FLOW
+  const content = getPlatformContent(platform, lang)
+  const flow = getFlow(platform, lang)
 
   return (
     <ModalShell
@@ -76,7 +75,7 @@ export default function InstallInstructionsModal({
 
       {isIos && (
         <p className="mt-5 text-sm font-bold uppercase tracking-wide text-lime">
-          Instálala como app en 5 pasos
+          {t('ios_steps_label')}
         </p>
       )}
 

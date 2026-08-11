@@ -1,7 +1,11 @@
 import SectionReveal from '../components/SectionReveal'
 import StoreButtons from '../components/StoreButtons'
+import { useLang, useT } from '../lib/i18n'
 
 export default function FinalCta() {
+  const { lang } = useLang()
+  const t = useT()
+
   return (
     <section className="relative overflow-hidden">
       {/* Intense magenta gradient background, full width */}
@@ -10,18 +14,24 @@ export default function FinalCta() {
 
       <SectionReveal className="relative mx-auto max-w-4xl px-5 py-24 text-center sm:px-8 md:py-32">
         <h2 className="text-5xl leading-[0.95] text-white sm:text-6xl md:text-7xl">
-          ¿LISTA PARA<br />DESPERTAR DIFERENTE?
+          {lang === 'es' ? (
+            <>
+              ¿LISTA PARA<br />DESPERTAR DIFERENTE?
+            </>
+          ) : (
+            <>
+              READY TO<br />WAKE UP DIFFERENTLY?
+            </>
+          )}
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-lg text-white/90">
-          Descarga Booty Alarm hoy y empieza tu transformación mañana.
-        </p>
+        <p className="mx-auto mt-5 max-w-xl text-lg text-white/90">{t('cta_sub')}</p>
 
         <div className="mt-9 flex justify-center">
           <StoreButtons size="lg" />
         </div>
 
         <p className="mt-8 text-2xl font-bold tracking-wide text-white sm:text-3xl">
-          ¿O NO PUEDES? 🍑
+          {t('cta_tagline')}
         </p>
       </SectionReveal>
     </section>

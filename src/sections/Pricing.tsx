@@ -3,22 +3,24 @@ import BetaBadge from '../components/BetaBadge'
 import SectionHeading from '../components/SectionHeading'
 import SectionReveal from '../components/SectionReveal'
 import StoreButtons from '../components/StoreButtons'
-import { PLANS } from '../lib/content'
+import { getPlans } from '../lib/content'
+import { useLang, useT } from '../lib/i18n'
 
 export default function Pricing() {
+  const { lang } = useLang()
+  const t = useT()
+  const plans = getPlans(lang)
+
   return (
     <section id="precios" className="section">
-      <SectionHeading
-        title="ELIGE TU PLAN"
-        subtitle="Suscríbete desde la app. Cancela cuando quieras."
-      />
+      <SectionHeading title={t('pricing_title')} subtitle={t('pricing_sub')} />
 
       <SectionReveal className="mt-6 flex justify-center">
         <BetaBadge />
       </SectionReveal>
 
       <div className="mt-14 grid items-stretch gap-6 md:grid-cols-2">
-        {PLANS.map((plan, i) => (
+        {plans.map((plan, i) => (
           <SectionReveal key={plan.name} delay={i * 0.1} className="flex">
             <div
               className={`glass flex w-full flex-col p-7 transition-all duration-300 ${
@@ -70,7 +72,7 @@ export default function Pricing() {
       </div>
 
       <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-muted">
-        La suscripción se gestiona desde la app y se procesa de forma segura.
+        {t('pricing_note')}
       </p>
     </section>
   )

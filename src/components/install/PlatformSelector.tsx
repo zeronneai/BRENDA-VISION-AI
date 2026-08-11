@@ -1,4 +1,5 @@
 import ModalShell from './ModalShell'
+import { useT } from '../../lib/i18n'
 import type { Platform } from '../../lib/install'
 
 interface PlatformSelectorProps {
@@ -11,12 +12,14 @@ const TITLE_ID = 'platform-selector-title'
 
 /** Small sub-modal asking the user which device they have. */
 export default function PlatformSelector({ isOpen, onClose, onSelect }: PlatformSelectorProps) {
+  const t = useT()
+
   return (
     <ModalShell isOpen={isOpen} onClose={onClose} titleId={TITLE_ID} maxWidth="max-w-md">
       <h3 id={TITLE_ID} className="pr-10 text-3xl leading-none text-white">
-        ¿QUÉ DISPOSITIVO TIENES?
+        {t('sel_title')}
       </h3>
-      <p className="mt-3 text-sm text-muted">Elige tu plataforma para ver las instrucciones de instalación.</p>
+      <p className="mt-3 text-sm text-muted">{t('sel_sub')}</p>
 
       <div className="mt-7 grid grid-cols-2 gap-4">
         <button

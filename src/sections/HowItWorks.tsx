@@ -3,20 +3,22 @@ import type { LucideIcon } from 'lucide-react'
 import GlassCard from '../components/GlassCard'
 import SectionHeading from '../components/SectionHeading'
 import SectionReveal from '../components/SectionReveal'
-import { STEPS } from '../lib/content'
+import { getSteps } from '../lib/content'
+import { useLang, useT } from '../lib/i18n'
 
 const ICONS: Record<string, LucideIcon> = { Clock, Bell, Camera }
 
 export default function HowItWorks() {
+  const { lang } = useLang()
+  const t = useT()
+  const steps = getSteps(lang)
+
   return (
     <section id="como-funciona" className="section">
-      <SectionHeading
-        title="ASÍ FUNCIONA"
-        subtitle="Tres pasos para no volver a quedarte dormida."
-      />
+      <SectionHeading title={t('how_title')} subtitle={t('how_sub')} />
 
       <div className="mt-14 grid gap-6 md:grid-cols-3">
-        {STEPS.map((step, i) => {
+        {steps.map((step, i) => {
           const Icon = ICONS[step.icon]
           return (
             <SectionReveal key={step.index} delay={i * 0.1}>

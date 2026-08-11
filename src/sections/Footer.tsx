@@ -1,14 +1,17 @@
 import { Instagram, Mail } from 'lucide-react'
 import { EXTERNAL_LINKS } from '../lib/links'
-
-const PRODUCT_LINKS = [
-  { label: 'Cómo funciona', href: '#como-funciona' },
-  { label: 'Brenda Fitness', href: '#premium' },
-  { label: 'Precios', href: '#precios' },
-  { label: 'FAQ', href: '#faq' },
-]
+import { useT } from '../lib/i18n'
 
 export default function Footer() {
+  const t = useT()
+
+  const productLinks = [
+    { label: t('nav_how'), href: '#como-funciona' },
+    { label: 'Brenda Fitness', href: '#premium' },
+    { label: t('nav_pricing'), href: '#precios' },
+    { label: t('nav_faq'), href: '#faq' },
+  ]
+
   return (
     <footer className="border-t border-white/[0.08] bg-white/[0.02]">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
@@ -18,16 +21,16 @@ export default function Footer() {
             <div className="text-2xl tracking-wide text-white">
               BOOTY <span className="text-gradient">ALARM</span>
             </div>
-            <p className="mt-3 max-w-xs text-sm text-muted">
-              La única alarma que no se apaga hasta que tu cuerpo se mueve.
-            </p>
+            <p className="mt-3 max-w-xs text-sm text-muted">{t('footer_tagline')}</p>
           </div>
 
           {/* Producto */}
           <div>
-            <h3 className="font-sans text-sm font-bold uppercase tracking-wider text-white">Producto</h3>
+            <h3 className="font-sans text-sm font-bold uppercase tracking-wider text-white">
+              {t('footer_product')}
+            </h3>
             <ul className="mt-4 space-y-2">
-              {PRODUCT_LINKS.map((link) => (
+              {productLinks.map((link) => (
                 <li key={link.href}>
                   <a href={link.href} className="text-sm text-muted transition-colors hover:text-white">
                     {link.label}
@@ -39,7 +42,9 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="font-sans text-sm font-bold uppercase tracking-wider text-white">Legal</h3>
+            <h3 className="font-sans text-sm font-bold uppercase tracking-wider text-white">
+              {t('footer_legal')}
+            </h3>
             <ul className="mt-4 space-y-2">
               <li>
                 <a
@@ -48,7 +53,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-muted transition-colors hover:text-white"
                 >
-                  Política de Privacidad
+                  {t('footer_privacy')}
                 </a>
               </li>
               <li>
@@ -58,7 +63,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-muted transition-colors hover:text-white"
                 >
-                  Términos
+                  {t('footer_terms')}
                 </a>
               </li>
             </ul>
@@ -66,7 +71,9 @@ export default function Footer() {
 
           {/* Contacto */}
           <div>
-            <h3 className="font-sans text-sm font-bold uppercase tracking-wider text-white">Contacto</h3>
+            <h3 className="font-sans text-sm font-bold uppercase tracking-wider text-white">
+              {t('footer_contact')}
+            </h3>
             <ul className="mt-4 space-y-2">
               <li>
                 <a
@@ -85,7 +92,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-white"
                 >
                   <Instagram className="h-4 w-4" aria-hidden />
-                  Instagram de Brenda
+                  {t('footer_instagram')}
                 </a>
               </li>
             </ul>
@@ -94,11 +101,9 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/[0.08] pt-6 text-center sm:flex-row sm:text-left">
+          <p className="text-xs text-muted">{t('footer_rights')}</p>
           <p className="text-xs text-muted">
-            © 2026 Purple Roots Agency. Todos los derechos reservados.
-          </p>
-          <p className="text-xs text-muted">
-            Diseñado y desarrollado por <span className="font-semibold text-white/80">ZERONNE</span>
+            {t('footer_credit')} <span className="font-semibold text-white/80">ZERONNE</span>
           </p>
         </div>
       </div>

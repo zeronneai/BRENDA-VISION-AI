@@ -1,5 +1,6 @@
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
+import { LanguageProvider } from './lib/i18n'
 import { ToastProvider } from './components/Toast'
 import { InstallModalProvider } from './components/install/InstallModalProvider'
 import Navbar from './sections/Navbar'
@@ -16,24 +17,26 @@ import Footer from './sections/Footer'
 
 export default function App() {
   return (
-    <ToastProvider>
-      <InstallModalProvider>
-        <Navbar />
-        <main>
-          <Hero />
-          <StatsBar />
-          <HowItWorks />
-          <Screenshots />
-          <Premium />
-          <Pricing />
-          <Testimonials />
-          <Faq />
-          <FinalCta />
-        </main>
-        <Footer />
-        <Analytics />
-        <SpeedInsights />
-      </InstallModalProvider>
-    </ToastProvider>
+    <LanguageProvider>
+      <ToastProvider>
+        <InstallModalProvider>
+          <Navbar />
+          <main>
+            <Hero />
+            <StatsBar />
+            <HowItWorks />
+            <Screenshots />
+            <Premium />
+            <Pricing />
+            <Testimonials />
+            <Faq />
+            <FinalCta />
+          </main>
+          <Footer />
+          <Analytics />
+          <SpeedInsights />
+        </InstallModalProvider>
+      </ToastProvider>
+    </LanguageProvider>
   )
 }

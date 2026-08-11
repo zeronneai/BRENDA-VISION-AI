@@ -3,17 +3,21 @@ import { Plus } from 'lucide-react'
 import { useState } from 'react'
 import SectionHeading from '../components/SectionHeading'
 import SectionReveal from '../components/SectionReveal'
-import { FAQ } from '../lib/content'
+import { getFaq } from '../lib/content'
+import { useLang, useT } from '../lib/i18n'
 
 export default function Faq() {
+  const { lang } = useLang()
+  const t = useT()
+  const faq = getFaq(lang)
   const [open, setOpen] = useState<number | null>(0)
 
   return (
     <section id="faq" className="section">
-      <SectionHeading title="PREGUNTAS FRECUENTES" />
+      <SectionHeading title={t('faq_title')} />
 
       <div className="mx-auto mt-12 max-w-3xl space-y-3">
-        {FAQ.map((item, i) => {
+        {faq.map((item, i) => {
           const isOpen = open === i
           return (
             <SectionReveal key={item.question} delay={i * 0.04}>
