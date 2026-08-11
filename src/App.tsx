@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { ToastProvider } from './components/Toast'
 import { InstallModalProvider } from './components/install/InstallModalProvider'
 import Navbar from './sections/Navbar'
@@ -29,6 +30,7 @@ export default function App() {
           <FinalCta />
         </main>
         <Footer />
+        <Analytics />
       </InstallModalProvider>
     </ToastProvider>
   )
