@@ -2,29 +2,44 @@ import { createContext, useCallback, useContext, useMemo, useState } from 'react
 import type { ReactNode } from 'react'
 import InstallInstructionsModal from './InstallInstructionsModal'
 import PlatformSelector from './PlatformSelector'
+import { useToast } from '../Toast'
 import type { Platform } from '../../lib/install'
 
 interface InstallContextValue {
-  /** Open the install instructions for a specific platform. */
+  /** iOS → "coming soon" toast; Android → APK install modal. */
   openInstall: (platform: Platform) => void
-  /** Open the "which device?" selector (when platform is unknown). */
+  /** Open the "which device?" selector. */
   openSelector: () => void
 }
 
 const InstallContext = createContext<InstallContextValue | null>(null)
 
-type View = { kind: 'closed' } | { kind: 'selector' } | { kind: 'instructions'; platform: Platform }
+type View = 'closed' | 'selector' | 'android'
+
+const IOS_COMING_SOON = '🍎 Muy pronto en el App Store. Booty Alarm está en revisión final de Apple.'
 
 /**
  * Holds the install-modal state and renders the modals once at the app root, so
  * any button (Hero, Pricing, CTA, Navbar) can open them via useInstall().
+ * iOS has no install flow yet (App Store pending) — it shows a toast.
  */
 export function InstallModalProvider({ children }: { children: ReactNode }) {
-  const [view, setView] = useState<View>({ kind: 'closed' })
+  const { showToast } = useToast()
+  const [view, setView] = useState<View>('closed')
 
-  const openInstall = useCallback((platform: Platform) => setView({ kind: 'instructions', platform }), [])
-  const openSelector = useCallback(() => setView({ kind: 'selector' }), [])
-  const close = useCallback(() => setView({ kind: 'closed' }), [])
+  const close = useCallback(() => setView('closed'), [])
+  const openSelector = useCallback(() => setView('selector'), [])
+  const openInstall = useCallback(
+    (platform: Platform) => {
+      if (platform === 'android') {
+        setView('android')
+      } else {
+        setView('closed')
+        showToast(IOS_COMING_SOON)
+      }
+    },
+    [showToast],
+  )
 
   const value = useMemo(() => ({ openInstall, openSelector }), [openInstall, openSelector])
 
@@ -32,17 +47,9 @@ export function InstallModalProvider({ children }: { children: ReactNode }) {
     <InstallContext.Provider value={value}>
       {children}
 
-      <PlatformSelector
-        isOpen={view.kind === 'selector'}
-        onClose={close}
-        onSelect={openInstall}
-      />
+      <PlatformSelector isOpen={view === 'selector'} onClose={close} onSelect={openInstall} />
 
-      <InstallInstructionsModal
-        isOpen={view.kind === 'instructions'}
-        onClose={close}
-        platform={view.kind === 'instructions' ? view.platform : 'ios'}
-      />
+      <InstallInstructionsModal isOpen={view === 'android'} onClose={close} />
     </InstallContext.Provider>
   )
 }

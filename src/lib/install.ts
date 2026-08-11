@@ -1,11 +1,11 @@
 /**
- * Content for the install-instructions modals (iOS TestFlight / iOS Web /
- * Android APK). Centralized so copy can change without touching components.
+ * Content for the Android install-instructions modal (APK). Centralized so copy
+ * can change without touching components. iOS is "coming soon" (App Store) and
+ * has no install flow.
  */
-import { STORE_LINKS, TESTFLIGHT_APP_STORE_URL } from './links'
+import { STORE_LINKS } from './links'
 
 export type Platform = 'ios' | 'android'
-export type IosTab = 'testflight' | 'web'
 
 /** Lucide icon names resolved in the modal component. */
 export type StepIcon =
@@ -45,75 +45,9 @@ export interface PlatformContent {
   subtitle: string
 }
 
-export const IOS_CONTENT: PlatformContent = {
-  headline: '📱 INSTALAR EN IPHONE',
-  subtitle: 'Mientras Apple aprueba la versión oficial, prueba la app COMPLETA vía TestFlight.',
-}
-
 export const ANDROID_CONTENT: PlatformContent = {
   headline: '🤖 INSTALAR EN ANDROID',
   subtitle: 'Descarga el archivo directamente. Pronto estaremos en Google Play.',
-}
-
-export const IOS_TESTFLIGHT_FLOW: InstallFlow = {
-  steps: [
-    {
-      icon: 'Send',
-      title: 'DESCARGA TESTFLIGHT',
-      description: 'Instala la app oficial de Apple para pruebas (gratis y seguro).',
-      button: { label: 'Abrir App Store', href: TESTFLIGHT_APP_STORE_URL },
-    },
-    {
-      icon: 'ExternalLink',
-      title: 'ABRE EL ENLACE DE BOOTY ALARM',
-      description:
-        'Al dar click, TestFlight abrirá automáticamente y verás Booty Alarm lista para instalar.',
-    },
-    {
-      icon: 'CheckCircle2',
-      title: 'INSTALA Y ABRE',
-      description: 'Toca INSTALL en TestFlight. La app se descarga en segundos. ¡Lista para usar!',
-    },
-  ],
-  cta: { label: '🚀 ABRIR EN TESTFLIGHT', href: STORE_LINKS.ios_testflight, variant: 'primary' },
-  perks: [
-    'Aplicación REAL con todas las funciones',
-    'Misma versión que estará en App Store',
-    'Apple ya aprobó esta versión beta',
-    'Funciona sin internet (excepto suscripción)',
-  ],
-}
-
-export const IOS_WEB_FLOW: InstallFlow = {
-  warning:
-    'La versión web NO tiene alarma imparable. Para la experiencia completa, te recomendamos TestFlight.',
-  steps: [
-    {
-      icon: 'Compass',
-      title: 'ABRE BOOTY ALARM EN SAFARI',
-      description:
-        'Toca el botón al final para abrir la app en Safari (Chrome no funciona igual en iPhone).',
-    },
-    {
-      icon: 'Share',
-      title: 'AGREGA AL INICIO',
-      description:
-        'En Safari: toca el botón Compartir (cuadrado con flecha hacia arriba) → "Agregar a Inicio".',
-    },
-    {
-      icon: 'PenLine',
-      title: 'PERSONALIZA EL ICONO',
-      description:
-        'Confirma el nombre y toca "Agregar". Ahora tienes Booty Alarm en tu pantalla principal como una app.',
-    },
-    {
-      icon: 'Rocket',
-      title: 'ÁBRELA Y EMPIEZA',
-      description:
-        'Toca el icono desde tu home. Inicia sesión o regístrate y usa la app desde tu navegador.',
-    },
-  ],
-  cta: { label: '🌐 ABRIR EN SAFARI', href: STORE_LINKS.ios_pwa, variant: 'outline' },
 }
 
 export const ANDROID_FLOW: InstallFlow = {

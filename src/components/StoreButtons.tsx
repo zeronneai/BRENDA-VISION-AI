@@ -13,9 +13,11 @@ interface StoreButtonsProps {
 }
 
 /**
- * Dual store CTAs. Instead of linking straight to the stores, each button opens
- * the install-instructions modal for its platform (iOS via TestFlight, Android
- * via APK). A secondary link opens the device selector.
+ * Dual store CTAs.
+ * - Android: primary button that opens the APK install modal (download).
+ * - iOS: informative "Próximamente en App Store" (App Store still in review) —
+ *   no link, shows a toast on tap.
+ * A secondary link opens the device selector.
  */
 export default function StoreButtons({
   size = 'md',
@@ -29,24 +31,27 @@ export default function StoreButtons({
   return (
     <div className="flex flex-col items-center gap-3">
       <div className={`flex w-full flex-col gap-3 sm:flex-row ${className}`}>
+        {/* Android — the actionable download */}
         <Button
           variant="primary"
-          size={size}
-          className={widthClass}
-          onClick={() => openInstall('ios')}
-        >
-          <Apple className="h-5 w-5" aria-hidden />
-          DESCARGAR EN APP STORE
-        </Button>
-
-        <Button
-          variant="outline"
           size={size}
           className={widthClass}
           onClick={() => openInstall('android')}
         >
           <Play className="h-5 w-5" aria-hidden />
           DESCARGAR EN GOOGLE PLAY
+        </Button>
+
+        {/* iOS — informative, App Store still in review */}
+        <Button
+          variant="outline"
+          size={size}
+          className={`${widthClass} opacity-60`}
+          onClick={() => openInstall('ios')}
+          aria-label="Próximamente en App Store"
+        >
+          <Apple className="h-5 w-5" aria-hidden />
+          PRÓXIMAMENTE EN APP STORE
         </Button>
       </div>
 

@@ -56,35 +56,30 @@ placeholder se reemplaza automáticamente por la imagen (con lazy-loading).
 La lista exacta de imágenes a generar, con tamaños/ratios recomendados, está
 en **[`CLOUDINARY.md`](./CLOUDINARY.md)**.
 
-## Descarga vía modales de instrucciones
+## Descarga de la app
 
-Mientras Apple revisa la app y aún no estamos en Google Play, los botones de
-descarga **no van directo a las stores**: abren un **modal con instrucciones**
-de instalación según la plataforma.
-
-- **iOS** → modal con 2 pestañas: **TestFlight** (recomendado, app real) y
-  **Versión Web** (PWA en Safari).
-- **Android** → modal con pasos para instalar el **APK directo**.
-- Botón secundario "**¿Cómo instalar?**" → abre un selector iOS/Android.
+- **Android** → botón principal que abre un **modal con instrucciones** para
+  instalar el **APK directo** (descarga desde el GitHub Release de ECOBRENDA).
+- **iOS** → **"Próximamente en App Store"** (informativo, sin link): la app está
+  en revisión final de Apple. Al tocar muestra un aviso; no abre modal.
+- Botón secundario "**¿Cómo instalar?**" → selector iOS/Android (iOS muestra el
+  aviso "próximamente", Android abre el modal del APK).
 
 ### URLs en `src/lib/links.ts`
 
 | Clave | Uso | Estado |
 |-------|-----|--------|
-| `ios_testflight` | Link público de TestFlight | ✅ activo |
-| `ios_app_store` | App Store oficial | placeholder hasta aprobación |
-| `ios_pwa` | PWA web (fallback iOS) | ✅ activo |
-| `android_apk` | APK directo | ⚠️ `PLACEHOLDER_PENDING_APK_URL` |
+| `ios_app_store` | App Store oficial | en revisión de Apple (sin link público) |
+| `android_apk` | APK directo | ✅ activo (GitHub Release) |
 | `android_play_store` | Google Play oficial | placeholder |
 
-**Pendiente:** cuando el APK esté generado, reemplaza `android_apk` con su URL
-real. Hasta entonces, el botón de descarga del APK muestra un toast ("muy
-pronto"); en cuanto pongas la URL (`ANDROID_APK_READY` pasa a `true`), el botón
-descarga automáticamente.
+**Actualizar el APK:** cambia `android_apk` por la URL del nuevo GitHub Release.
+`ANDROID_APK_READY` detecta si es un placeholder para mostrar un toast en su
+lugar.
 
-El contenido de los pasos vive en **`src/lib/install.ts`** (fácil de editar).
-Los modales (`src/components/install/`) son accesibles: ESC, focus trap,
-click-fuera para cerrar y soporte para `prefers-reduced-motion`.
+El contenido de los pasos de Android vive en **`src/lib/install.ts`**. Los
+modales (`src/components/install/`) son accesibles: ESC, focus trap, click-fuera
+para cerrar y soporte para `prefers-reduced-motion`.
 
 Un badge sutil "🚧 Beta abierta" aparece en el Hero y en Precios.
 
