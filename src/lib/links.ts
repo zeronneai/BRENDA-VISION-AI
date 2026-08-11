@@ -4,7 +4,7 @@ export const STORE_LINKS = {
   ios_app_store: 'https://apps.apple.com/app/booty-alarm/id6766718608',
 
   // Android APK directo (hasta que esté en Google Play)
-  android_apk: 'https://github.com/zeronneai/ECOBRENDA/releases/download/V1.2.0/booty-alarm.apk',
+  android_apk: 'https://github.com/zeronneai/ECOBRENDA/releases/download/v1.2.1/booty-alarm.apk',
 
   // Android Google Play oficial (placeholder)
   android_play_store: 'https://play.google.com/store/apps/details?id=com.zeronne.bootyalarm',
