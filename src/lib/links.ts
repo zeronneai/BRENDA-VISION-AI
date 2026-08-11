@@ -3,6 +3,9 @@ export const STORE_LINKS = {
   // iOS App Store oficial (en revisión de Apple — aún sin link público)
   ios_app_store: 'https://apps.apple.com/app/booty-alarm/id6766718608',
 
+  // iOS PWA — mientras Apple aprueba, se instala como app desde Safari
+  ios_pwa: 'https://ecobrenda.vercel.app/',
+
   // Android APK directo (hasta que esté en Google Play)
   android_apk: 'https://github.com/zeronneai/ECOBRENDA/releases/download/v1.2.1/booty-alarm.apk',
 

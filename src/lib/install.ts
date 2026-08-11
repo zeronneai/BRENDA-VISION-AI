@@ -1,7 +1,8 @@
 /**
- * Content for the Android install-instructions modal (APK). Centralized so copy
- * can change without touching components. iOS is "coming soon" (App Store) and
- * has no install flow.
+ * Content for the install-instructions modals. Centralized so copy can change
+ * without touching components.
+ * - Android → APK download flow.
+ * - iOS → "coming soon to the App Store" + install-as-PWA-from-Safari steps.
  */
 import { STORE_LINKS } from './links'
 
@@ -14,6 +15,7 @@ export type StepIcon =
   | 'CheckCircle2'
   | 'Compass'
   | 'Share'
+  | 'Plus'
   | 'PenLine'
   | 'Rocket'
   | 'ShieldCheck'
@@ -43,6 +45,52 @@ export interface InstallFlow {
 export interface PlatformContent {
   headline: string
   subtitle: string
+}
+
+export const IOS_CONTENT: PlatformContent = {
+  headline: '📱 PRÓXIMAMENTE EN EL APP STORE',
+  subtitle:
+    'Estamos trabajando para traerte Booty Alarm al App Store muy pronto. Mientras tanto, ya puedes empezar a usarla: instálala en tu iPhone desde Safari en menos de 1 minuto 👇',
+}
+
+/** Install-as-PWA steps for iPhone (Safari). */
+export const IOS_PWA_FLOW: InstallFlow = {
+  steps: [
+    {
+      icon: 'Compass',
+      title: '1. ABRE LA APP EN SAFARI',
+      description: 'Toca el botón de abajo para abrir ecobrenda.vercel.app en Safari.',
+      note: 'Debe ser Safari (en iPhone, Chrome no permite instalar apps al inicio).',
+    },
+    {
+      icon: 'Share',
+      title: '2. TOCA "COMPARTIR" (SHARE)',
+      description:
+        'Es el cuadrito con una flecha hacia arriba, en la barra de abajo de Safari.',
+    },
+    {
+      icon: 'Plus',
+      title: '3. "AGREGAR A INICIO" (ADD TO HOME SCREEN)',
+      description: 'Baja en el menú y toca la opción "Agregar a inicio".',
+    },
+    {
+      icon: 'CheckCircle2',
+      title: '4. TOCA "AGREGAR" (ADD)',
+      description: 'Confirma con el botón "Agregar", arriba a la derecha.',
+    },
+    {
+      icon: 'Rocket',
+      title: '5. ¡LISTO! ÁBRELA DESDE TU INICIO',
+      description:
+        'Booty Alarm aparece en tu pantalla de inicio como una app normal. Ábrela desde ahí y empieza.',
+    },
+  ],
+  cta: { label: '🌐 ABRIR EN SAFARI', href: STORE_LINKS.ios_pwa, variant: 'primary' },
+  perks: [
+    'Empieza a usarla ya, sin esperar al App Store',
+    'Se ve y funciona como una app nativa',
+    'La versión del App Store llega muy pronto',
+  ],
 }
 
 export const ANDROID_CONTENT: PlatformContent = {

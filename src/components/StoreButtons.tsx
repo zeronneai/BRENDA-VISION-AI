@@ -15,8 +15,8 @@ interface StoreButtonsProps {
 /**
  * Dual store CTAs.
  * - Android: primary button that opens the APK install modal (download).
- * - iOS: informative "Próximamente en App Store" (App Store still in review) —
- *   no link, shows a toast on tap.
+ * - iOS: "Próximamente en App Store" — opens a modal with a positive
+ *   coming-soon message + steps to install as a PWA from Safari meanwhile.
  * A secondary link opens the device selector.
  */
 export default function StoreButtons({
@@ -42,13 +42,13 @@ export default function StoreButtons({
           DESCARGAR EN GOOGLE PLAY
         </Button>
 
-        {/* iOS — informative, App Store still in review */}
+        {/* iOS — App Store in review; tap opens PWA-install instructions */}
         <Button
           variant="outline"
           size={size}
-          className={`${widthClass} opacity-60`}
+          className={widthClass}
           onClick={() => openInstall('ios')}
-          aria-label="Próximamente en App Store"
+          aria-label="Próximamente en App Store — ver cómo instalarla mientras tanto"
         >
           <Apple className="h-5 w-5" aria-hidden />
           PRÓXIMAMENTE EN APP STORE
