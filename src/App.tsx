@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import { ToastProvider } from './components/Toast'
 import { InstallModalProvider } from './components/install/InstallModalProvider'
 import Navbar from './sections/Navbar'
@@ -31,6 +32,7 @@ export default function App() {
         </main>
         <Footer />
         <Analytics />
+        <SpeedInsights />
       </InstallModalProvider>
     </ToastProvider>
   )
