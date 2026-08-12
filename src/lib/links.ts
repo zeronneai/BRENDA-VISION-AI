@@ -16,6 +16,10 @@ export const STORE_LINKS = {
 /** Link a la app TestFlight en el App Store (para instalarla primero). */
 export const TESTFLIGHT_APP_STORE_URL = 'https://apps.apple.com/app/testflight/id899247664'
 
+/** Video tutorial de instalación en Android (Cloudinary). */
+export const ANDROID_TUTORIAL_VIDEO =
+  'https://res.cloudinary.com/dsprn0ew4/video/upload/v1786569120/Screen_Recording_20260812_125229_Booty_Alarm_ro43tj.mp4'
+
 /** Estado actual de cada plataforma. */
 export const PLATFORM_STATUS = {
   ios: 'testflight', // 'app_store' | 'testflight'

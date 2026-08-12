@@ -170,6 +170,19 @@ const UI = {
   // Modal shell
   modal_close: { es: 'Cerrar', en: 'Close' },
 
+  // Android video tutorial
+  video_btn: {
+    es: '📹 Para mejor explicación, mira este video',
+    en: '📹 For a better explanation, watch this video',
+  },
+  video_title: { es: 'Video: cómo instalar en Android', en: 'Video: how to install on Android' },
+
+  // iOS 26+ informational note
+  ios26_note: {
+    es: '💡 Para la mejor experiencia recomendamos iOS 26 o superior — la alarma suena incluso con el teléfono en silencio o en modo Concentración. En versiones anteriores la alarma funciona de forma básica.',
+    en: '💡 For the best experience we recommend iOS 26 or later — the alarm rings even when your phone is on silent or in Focus mode. On older versions the alarm works in basic mode.',
+  },
+
   // Alarm hero mockup
   alarm_desc_pre: {
     es: 'No se apaga hasta que completes',
