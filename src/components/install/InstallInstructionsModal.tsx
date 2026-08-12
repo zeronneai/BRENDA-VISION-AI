@@ -4,7 +4,7 @@ import ModalShell from './ModalShell'
 import InstallFlowView from './InstallFlowView'
 import { getFlow, getPlatformContent } from '../../lib/install'
 import type { Platform } from '../../lib/install'
-import { useLang, useT } from '../../lib/i18n'
+import { useLang } from '../../lib/i18n'
 
 interface InstallInstructionsModalProps {
   isOpen: boolean
@@ -56,8 +56,6 @@ export default function InstallInstructionsModal({
   platform,
 }: InstallInstructionsModalProps) {
   const { lang } = useLang()
-  const t = useT()
-  const isIos = platform === 'ios'
   const content = getPlatformContent(platform, lang)
   const flow = getFlow(platform, lang)
 
@@ -72,12 +70,6 @@ export default function InstallInstructionsModal({
         {content.headline}
       </h3>
       <p className="mt-3 text-sm text-muted sm:text-base">{content.subtitle}</p>
-
-      {isIos && (
-        <p className="mt-5 text-sm font-bold uppercase tracking-wide text-lime">
-          {t('ios_steps_label')}
-        </p>
-      )}
 
       <div className="mt-6">
         <InstallFlowView flow={flow} />

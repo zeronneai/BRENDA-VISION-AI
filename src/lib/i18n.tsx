@@ -86,11 +86,11 @@ const UI = {
 
   // Store buttons
   btn_google_play: { es: 'DESCARGAR EN GOOGLE PLAY', en: 'DOWNLOAD ON GOOGLE PLAY' },
-  btn_app_store_soon: { es: 'PRÓXIMAMENTE EN APP STORE', en: 'COMING SOON TO APP STORE' },
+  btn_ios_download: { es: 'DESCARGAR PARA IPHONE', en: 'DOWNLOAD FOR IPHONE' },
   btn_how_install: { es: '¿Cómo instalar?', en: 'How to install?' },
   btn_ios_aria: {
-    es: 'Próximamente en App Store — ver cómo instalarla mientras tanto',
-    en: 'Coming soon to the App Store — see how to install it meanwhile',
+    es: 'Descargar para iPhone vía TestFlight',
+    en: 'Download for iPhone via TestFlight',
   },
 
   // How it works
@@ -169,9 +169,6 @@ const UI = {
 
   // Modal shell
   modal_close: { es: 'Cerrar', en: 'Close' },
-
-  // iOS install modal helper
-  ios_steps_label: { es: 'Instálala como app en 5 pasos', en: 'Install it as an app in 5 steps' },
 
   // Alarm hero mockup
   alarm_desc_pre: {

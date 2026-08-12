@@ -14,10 +14,9 @@ interface StoreButtonsProps {
 }
 
 /**
- * Dual store CTAs.
- * - Android: primary button that opens the APK install modal (download).
- * - iOS: "Próximamente en App Store" — opens a modal with a positive
- *   coming-soon message + steps to install as a PWA from Safari meanwhile.
+ * Dual store CTAs. Each opens the platform's install modal:
+ * - Android: APK download flow.
+ * - iOS: TestFlight public-beta flow (steps + open-invitation button).
  * A secondary link opens the device selector.
  */
 export default function StoreButtons({
@@ -44,7 +43,7 @@ export default function StoreButtons({
           {t('btn_google_play')}
         </Button>
 
-        {/* iOS — App Store in review; tap opens PWA-install instructions */}
+        {/* iOS — TestFlight public beta; tap opens the install instructions */}
         <Button
           variant="outline"
           size={size}
@@ -53,7 +52,7 @@ export default function StoreButtons({
           aria-label={t('btn_ios_aria')}
         >
           <Apple className="h-5 w-5" aria-hidden />
-          {t('btn_app_store_soon')}
+          {t('btn_ios_download')}
         </Button>
       </div>
 

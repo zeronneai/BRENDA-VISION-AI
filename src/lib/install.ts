@@ -3,7 +3,7 @@
  * - Android → APK download flow.
  * - iOS → "coming soon to the App Store" + install-as-PWA-from-Safari steps.
  */
-import { STORE_LINKS } from './links'
+import { STORE_LINKS, TESTFLIGHT_APP_STORE_URL } from './links'
 import type { L, Lang } from './i18n'
 
 export type Platform = 'ios' | 'android'
@@ -48,6 +48,7 @@ interface StepData {
   title: L
   description: L
   note?: L
+  button?: { label: L; href: string }
 }
 interface FlowData {
   steps: StepData[]
@@ -57,65 +58,58 @@ interface FlowData {
 }
 
 const IOS_CONTENT_DATA: { headline: L; subtitle: L } = {
-  headline: { es: '📱 PRÓXIMAMENTE EN EL APP STORE', en: '📱 COMING SOON TO THE APP STORE' },
+  headline: { es: '📱 CÓMO INSTALAR EN IPHONE', en: '📱 HOW TO INSTALL ON IPHONE' },
   subtitle: {
-    es: 'Estamos trabajando para traerte Booty Alarm al App Store muy pronto. Mientras tanto, ya puedes empezar a usarla: instálala en tu iPhone desde Safari en menos de 1 minuto 👇',
-    en: "We're working to bring Booty Alarm to the App Store very soon. In the meantime, you can already start using it: install it on your iPhone from Safari in under 1 minute 👇",
+    es: 'Prueba Booty Alarm en tu iPhone vía TestFlight, la app oficial de Apple para betas. Solo toma un minuto.',
+    en: "Try Booty Alarm on your iPhone via TestFlight, Apple's official app for betas. It only takes a minute.",
   },
 }
 
 const IOS_FLOW_DATA: FlowData = {
   steps: [
     {
-      icon: 'Compass',
-      title: { es: '1. ABRE LA APP EN SAFARI', en: '1. OPEN THE APP IN SAFARI' },
+      icon: 'Send',
+      title: { es: '1. INSTALA TESTFLIGHT', en: '1. INSTALL TESTFLIGHT' },
       description: {
-        es: 'Toca el botón de abajo para abrir ecobrenda.vercel.app en Safari.',
-        en: 'Tap the button below to open ecobrenda.vercel.app in Safari.',
+        es: 'Descárgala del App Store: es la app oficial de Apple para probar apps.',
+        en: "Download it from the App Store: it's Apple's official app for testing apps.",
       },
-      note: {
-        es: 'Debe ser Safari (en iPhone, Chrome no permite instalar apps al inicio).',
-        en: 'It must be Safari (on iPhone, Chrome cannot install apps to the home screen).',
-      },
+      button: { label: { es: 'Abrir App Store', en: 'Open App Store' }, href: TESTFLIGHT_APP_STORE_URL },
     },
     {
-      icon: 'Share',
-      title: { es: '2. TOCA "COMPARTIR" (SHARE)', en: '2. TAP "SHARE"' },
+      icon: 'ExternalLink',
+      title: { es: '2. ABRE LA INVITACIÓN', en: '2. OPEN THE INVITATION' },
       description: {
-        es: 'Es el cuadrito con una flecha hacia arriba, en la barra de abajo de Safari.',
-        en: "It's the little square with an up arrow, in Safari's bottom bar.",
-      },
-    },
-    {
-      icon: 'Plus',
-      title: { es: '3. "AGREGAR A INICIO" (ADD TO HOME SCREEN)', en: '3. "ADD TO HOME SCREEN"' },
-      description: {
-        es: 'Baja en el menú y toca la opción "Agregar a inicio".',
-        en: 'Scroll down the menu and tap "Add to Home Screen".',
+        es: 'Toca el botón de abajo para abrir la invitación de Booty Alarm en TestFlight.',
+        en: "Tap the button below to open Booty Alarm's invitation in TestFlight.",
       },
     },
     {
       icon: 'CheckCircle2',
-      title: { es: '4. TOCA "AGREGAR" (ADD)', en: '4. TAP "ADD"' },
+      title: { es: '3. ACEPTA E INSTALA', en: '3. ACCEPT AND INSTALL' },
       description: {
-        es: 'Confirma con el botón "Agregar", arriba a la derecha.',
-        en: 'Confirm with the "Add" button, top right.',
+        es: 'En TestFlight, toca "Aceptar" e "Instalar". La app se descarga en segundos.',
+        en: 'In TestFlight, tap "Accept" and "Install". The app downloads in seconds.',
       },
     },
     {
       icon: 'Rocket',
-      title: { es: '5. ¡LISTO! ÁBRELA DESDE TU INICIO', en: '5. DONE! OPEN IT FROM YOUR HOME SCREEN' },
+      title: { es: '4. ¡LISTO!', en: '4. DONE!' },
       description: {
-        es: 'Booty Alarm aparece en tu pantalla de inicio como una app normal. Ábrela desde ahí y empieza.',
-        en: 'Booty Alarm appears on your home screen like a normal app. Open it from there and get started.',
+        es: 'Abre Booty Alarm desde tu pantalla de inicio y empieza.',
+        en: 'Open Booty Alarm from your home screen and get started.',
       },
     },
   ],
-  cta: { label: { es: '🌐 ABRIR EN SAFARI', en: '🌐 OPEN IN SAFARI' }, href: STORE_LINKS.ios_pwa, variant: 'primary' },
+  cta: {
+    label: { es: '🚀 ABRIR INVITACIÓN DE TESTFLIGHT', en: '🚀 OPEN TESTFLIGHT INVITATION' },
+    href: STORE_LINKS.ios_testflight,
+    variant: 'primary',
+  },
   perks: [
-    { es: 'Empieza a usarla ya, sin esperar al App Store', en: 'Start using it now, without waiting for the App Store' },
-    { es: 'Se ve y funciona como una app nativa', en: 'Looks and works like a native app' },
-    { es: 'La versión del App Store llega muy pronto', en: 'The App Store version is coming very soon' },
+    { es: 'App completa con todas las funciones', en: 'Full app with all features' },
+    { es: 'La misma versión que estará en el App Store', en: 'The same version that will be on the App Store' },
+    { es: 'TestFlight es la app oficial de Apple para betas', en: "TestFlight is Apple's official app for betas" },
   ],
 }
 
@@ -191,6 +185,7 @@ function resolveFlow(data: FlowData, lang: Lang): InstallFlow {
       title: s.title[lang],
       description: s.description[lang],
       note: s.note?.[lang],
+      button: s.button ? { label: s.button.label[lang], href: s.button.href } : undefined,
     })),
     cta: { label: data.cta.label[lang], href: data.cta.href, variant: data.cta.variant },
     perks: data.perks?.map((p) => p[lang]),

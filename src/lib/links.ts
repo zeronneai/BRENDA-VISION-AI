@@ -1,10 +1,10 @@
 /** App store / install links + external/legal URLs used across the landing. */
 export const STORE_LINKS = {
+  // iOS beta pública via TestFlight (mientras Apple aprueba el App Store)
+  ios_testflight: 'https://testflight.apple.com/join/vwaWpAz1',
+
   // iOS App Store oficial (en revisión de Apple — aún sin link público)
   ios_app_store: 'https://apps.apple.com/app/booty-alarm/id6766718608',
-
-  // iOS PWA — mientras Apple aprueba, se instala como app desde Safari
-  ios_pwa: 'https://ecobrenda.vercel.app/',
 
   // Android APK directo (hasta que esté en Google Play)
   android_apk: 'https://github.com/zeronneai/ECOBRENDA/releases/download/v1.2.1/booty-alarm.apk',
@@ -13,9 +13,12 @@ export const STORE_LINKS = {
   android_play_store: 'https://play.google.com/store/apps/details?id=com.zeronne.bootyalarm',
 } as const
 
+/** Link a la app TestFlight en el App Store (para instalarla primero). */
+export const TESTFLIGHT_APP_STORE_URL = 'https://apps.apple.com/app/testflight/id899247664'
+
 /** Estado actual de cada plataforma. */
 export const PLATFORM_STATUS = {
-  ios: 'coming_soon', // 'app_store' | 'coming_soon'  (App Store en revisión de Apple)
+  ios: 'testflight', // 'app_store' | 'testflight'
   android: 'apk', // 'play_store' | 'apk'
 } as const
 
