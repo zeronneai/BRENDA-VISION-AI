@@ -14,8 +14,10 @@ export default function Screenshots() {
     <section className="section">
       <SectionHeading title={t('shots_title')} subtitle={t('shots_sub')} />
 
-      {/* Horizontal scroll on mobile, grid on desktop */}
-      <div className="mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 no-scrollbar md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-6">
+      {/* Horizontal scroll on mobile, grid on desktop.
+          touch-pan-x lets vertical swipes scroll the page instead of being
+          trapped by the carousel; snap-proximity keeps it from locking. */}
+      <div className="mt-14 flex touch-pan-x snap-x snap-proximity gap-6 overflow-x-auto overscroll-x-contain pb-4 no-scrollbar md:grid md:touch-auto md:grid-cols-3 md:overflow-visible lg:grid-cols-6">
         {screenshots.map((shot, i) => (
           <SectionReveal
             key={shot.image}

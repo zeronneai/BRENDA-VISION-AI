@@ -190,6 +190,12 @@ const UI = {
     en: '📹 For a better explanation, watch this video',
   },
   video_title: { es: 'Video: cómo instalar en Android', en: 'Video: how to install on Android' },
+  video_btn_ios: { es: '📹 Mira este video', en: '📹 Watch this video' },
+  video_title_ios: { es: 'Video: cómo instalar en iPhone', en: 'Video: how to install on iPhone' },
+
+  // Floating download button
+  floating_download: { es: 'Descargar', en: 'Download' },
+  floating_aria: { es: 'Descargar la app', en: 'Download the app' },
 
   // "Already have an account?" note (both install modals)
   account_note: {

@@ -62,7 +62,6 @@ export default function InstallInstructionsModal({
   const { lang } = useLang()
   const t = useT()
   const isIos = platform === 'ios'
-  const isAndroid = platform === 'android'
   const content = getPlatformContent(platform, lang)
   const flow = getFlow(platform, lang)
 
@@ -85,10 +84,10 @@ export default function InstallInstructionsModal({
         </div>
       )}
 
-      {/* Android: watch the tutorial video */}
-      {isAndroid && onWatchVideo && (
+      {/* Watch the tutorial video (both platforms) */}
+      {onWatchVideo && (
         <Button variant="outline" size="md" className="mt-5 w-full" onClick={onWatchVideo}>
-          {t('video_btn')}
+          {isIos ? t('video_btn_ios') : t('video_btn')}
         </Button>
       )}
 

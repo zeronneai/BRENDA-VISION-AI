@@ -3,6 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react'
 import { LanguageProvider } from './lib/i18n'
 import { ToastProvider } from './components/Toast'
 import { InstallModalProvider } from './components/install/InstallModalProvider'
+import FloatingDownload from './components/FloatingDownload'
 import Navbar from './sections/Navbar'
 import Hero from './sections/Hero'
 import StatsBar from './sections/StatsBar'
@@ -33,6 +34,7 @@ export default function App() {
             <FinalCta />
           </main>
           <Footer />
+          <FloatingDownload />
           <Analytics />
           <SpeedInsights />
         </InstallModalProvider>

@@ -17,15 +17,22 @@ interface InstallContextValue {
 
 const InstallContext = createContext<InstallContextValue | null>(null)
 
-type View = 'closed' | 'selector' | 'ios' | 'android' | 'android_video' | 'premium'
+type View =
+  | 'closed'
+  | 'selector'
+  | 'ios'
+  | 'android'
+  | 'android_video'
+  | 'ios_video'
+  | 'premium'
 
 /**
  * Holds the install-modal state and renders the modals once at the app root, so
  * any button (Hero, Pricing, CTA, Navbar) can open them via useInstall().
  *
- * The Android tutorial video opens as its own view that replaces the Android
+ * A tutorial video opens as its own view that replaces the platform's
  * instructions (avoiding stacked modals / double-ESC); closing it returns to
- * the Android steps.
+ * the steps.
  */
 export function InstallModalProvider({ children }: { children: ReactNode }) {
   const [view, setView] = useState<View>('closed')
@@ -52,10 +59,11 @@ export function InstallModalProvider({ children }: { children: ReactNode }) {
         isOpen={isInstructions}
         onClose={close}
         platform={view === 'ios' ? 'ios' : 'android'}
-        onWatchVideo={() => setView('android_video')}
+        onWatchVideo={() => setView(view === 'ios' ? 'ios_video' : 'android_video')}
       />
 
-      <VideoModal isOpen={view === 'android_video'} onClose={() => setView('android')} />
+      <VideoModal isOpen={view === 'android_video'} onClose={() => setView('android')} platform="android" />
+      <VideoModal isOpen={view === 'ios_video'} onClose={() => setView('ios')} platform="ios" />
 
       <PremiumModal
         isOpen={view === 'premium'}

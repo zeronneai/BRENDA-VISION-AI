@@ -23,6 +23,10 @@ export const PREMIUM_CHECKOUT_URL = 'https://ecobrenda.vercel.app/'
 export const ANDROID_TUTORIAL_VIDEO =
   'https://res.cloudinary.com/dsprn0ew4/video/upload/v1786569120/Screen_Recording_20260812_125229_Booty_Alarm_ro43tj.mp4'
 
+/** Video tutorial de instalación en iPhone (Cloudinary). */
+export const IOS_TUTORIAL_VIDEO =
+  'https://res.cloudinary.com/dsprn0ew4/video/upload/v1786571374/WhatsApp_Video_2026-08-12_at_3.33.14_PM_rktqfu.mp4'
+
 /** Estado actual de cada plataforma. */
 export const PLATFORM_STATUS = {
   ios: 'testflight', // 'app_store' | 'testflight'

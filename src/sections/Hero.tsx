@@ -9,19 +9,25 @@ import { useLang, useT } from '../lib/i18n'
 export default function Hero() {
   const { lang } = useLang()
   const t = useT()
+
   return (
-    <section id="top" className="relative flex min-h-screen items-center overflow-hidden pt-24 pb-16">
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-2">
-        {/* Copy */}
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="text-center lg:text-left">
-          <motion.div variants={fadeUp} className="mb-6 flex justify-center lg:justify-start">
+    <>
+      {/* Top: message + download buttons (first thing you see) */}
+      <section
+        id="top"
+        className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 pt-24 pb-16 sm:px-8"
+      >
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="mx-auto max-w-3xl text-center"
+        >
+          <motion.div variants={fadeUp} className="mb-6 flex justify-center">
             <BetaBadge />
           </motion.div>
 
-          <motion.h1
-            variants={fadeUp}
-            className="text-6xl leading-[0.9] sm:text-7xl md:text-8xl"
-          >
+          <motion.h1 variants={fadeUp} className="text-6xl leading-[0.9] sm:text-7xl md:text-8xl">
             {lang === 'es' ? (
               <>
                 DESPIERTA<br />HACIENDO<br />
@@ -35,7 +41,7 @@ export default function Hero() {
             )}
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-lg text-lg text-muted sm:text-xl lg:mx-0">
+          <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-xl text-lg text-muted sm:text-xl">
             {t('hero_sub')}
           </motion.p>
 
@@ -46,32 +52,35 @@ export default function Hero() {
             {t('hero_tagline')}
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-9 flex justify-center lg:justify-start">
+          <motion.div variants={fadeUp} className="mt-9 flex justify-center">
             <StoreButtons size="lg" />
           </motion.div>
         </motion.div>
 
-        {/* Hero screenshot */}
+        {/* Scroll indicator */}
+        <a
+          href="#app-preview"
+          aria-label={t('hero_scroll')}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted"
+        >
+          <ChevronDown className="h-7 w-7 animate-scroll-hint" />
+        </a>
+      </section>
+
+      {/* Below: the app animation on a slightly lighter band (visual divider) */}
+      <section id="app-preview" className="border-y border-white/[0.06] bg-white/[0.03]">
         <motion.div
           initial={{ opacity: 0, scale: 0.92, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          className="order-first lg:order-last"
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto max-w-7xl px-5 py-16 sm:px-8 md:py-20"
         >
           <div className="animate-float motion-reduce:animate-none">
             <AlarmHeroAnimated />
           </div>
         </motion.div>
-      </div>
-
-      {/* Scroll indicator */}
-      <a
-        href="#como-funciona"
-        aria-label={t('hero_scroll')}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted"
-      >
-        <ChevronDown className="h-7 w-7 animate-scroll-hint" />
-      </a>
-    </section>
+      </section>
+    </>
   )
 }

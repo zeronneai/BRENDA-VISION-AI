@@ -1,32 +1,25 @@
+import { Languages } from 'lucide-react'
 import { useLang, useT } from '../lib/i18n'
-import type { Lang } from '../lib/i18n'
 
-const LANGS: Lang[] = ['es', 'en']
-
-/** Subtle segmented ES/EN language switcher (visible on web and mobile). */
+/**
+ * One-click language toggle. Shows the language it will switch TO, so a single
+ * tap flips ES ⇄ EN immediately — no need to aim at a specific letter.
+ */
 export default function LanguageToggle({ className = '' }: { className?: string }) {
-  const { lang, setLang } = useLang()
+  const { lang, toggle } = useLang()
   const t = useT()
+  const target = lang === 'es' ? 'EN' : 'ES'
 
   return (
-    <div
-      role="group"
+    <button
+      type="button"
+      onClick={toggle}
       aria-label={t('lang_toggle_aria')}
-      className={`inline-flex items-center rounded-full border border-white/15 bg-white/5 p-0.5 text-xs font-semibold ${className}`}
+      title={t('lang_toggle_aria')}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-white transition-colors hover:border-magenta/50 hover:bg-white/10 ${className}`}
     >
-      {LANGS.map((l) => (
-        <button
-          key={l}
-          type="button"
-          onClick={() => setLang(l)}
-          aria-pressed={lang === l}
-          className={`rounded-full px-2.5 py-1 uppercase tracking-wide transition-colors ${
-            lang === l ? 'bg-magenta text-white' : 'text-muted hover:text-white'
-          }`}
-        >
-          {l}
-        </button>
-      ))}
-    </div>
+      <Languages className="h-4 w-4 text-magenta-bright" aria-hidden />
+      {target}
+    </button>
   )
 }
