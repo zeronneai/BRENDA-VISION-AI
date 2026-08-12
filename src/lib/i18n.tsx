@@ -177,6 +177,12 @@ const UI = {
   },
   video_title: { es: 'Video: cómo instalar en Android', en: 'Video: how to install on Android' },
 
+  // "Already have an account?" note (both install modals)
+  account_note: {
+    es: '¿Ya tienes cuenta? Al abrir la app solo inicia sesión con tu correo y contraseña. No necesitas registrarte de nuevo — tu cuenta y tu acceso te siguen a todos lados.',
+    en: 'Already have an account? Just sign in with your email and password when you open the app. No need to register again — your account and access follow you everywhere.',
+  },
+
   // iOS 26+ informational note
   ios26_note: {
     es: '💡 Para la mejor experiencia recomendamos iOS 26 o superior — la alarma suena incluso con el teléfono en silencio o en modo Concentración. En versiones anteriores la alarma funciona de forma básica.',

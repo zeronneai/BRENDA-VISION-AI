@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import { User } from 'lucide-react'
 import Button, { LinkButton } from '../Button'
 import ModalShell from './ModalShell'
 import InstallFlowView from './InstallFlowView'
@@ -93,6 +94,12 @@ export default function InstallInstructionsModal({
 
       <div className="mt-6">
         <InstallFlowView flow={flow} />
+      </div>
+
+      {/* "Already have an account?" note — shown for both platforms */}
+      <div className="mt-6 flex items-start gap-3 rounded-2xl border border-magenta/25 bg-magenta/[0.07] p-4">
+        <User className="mt-0.5 h-5 w-5 shrink-0 text-magenta-bright" aria-hidden />
+        <p className="text-sm leading-relaxed text-white/85">{t('account_note')}</p>
       </div>
     </ModalShell>
   )
