@@ -1,14 +1,16 @@
 import { Check } from 'lucide-react'
 import BetaBadge from '../components/BetaBadge'
+import Button from '../components/Button'
 import SectionHeading from '../components/SectionHeading'
 import SectionReveal from '../components/SectionReveal'
-import StoreButtons from '../components/StoreButtons'
+import { useInstall } from '../components/install/InstallModalProvider'
 import { getPlans } from '../lib/content'
 import { useLang, useT } from '../lib/i18n'
 
 export default function Pricing() {
   const { lang } = useLang()
   const t = useT()
+  const { openPremium } = useInstall()
   const plans = getPlans(lang)
 
   return (
@@ -62,9 +64,16 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              {/* CTAs */}
+              {/* CTA — opens the Premium (web/Stripe) modal */}
               <div className="mt-7">
-                <StoreButtons fullWidth hideHelp className="sm:flex-col" />
+                <Button
+                  variant={plan.featured ? 'primary' : 'outline'}
+                  size="lg"
+                  className="w-full"
+                  onClick={openPremium}
+                >
+                  {t('premium_card_btn')}
+                </Button>
               </div>
             </div>
           </SectionReveal>

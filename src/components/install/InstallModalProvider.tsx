@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useMemo, useState } from 'react
 import type { ReactNode } from 'react'
 import InstallInstructionsModal from './InstallInstructionsModal'
 import PlatformSelector from './PlatformSelector'
+import PremiumModal from './PremiumModal'
 import VideoModal from './VideoModal'
 import type { Platform } from '../../lib/install'
 
@@ -10,11 +11,13 @@ interface InstallContextValue {
   openInstall: (platform: Platform) => void
   /** Open the "which device?" selector. */
   openSelector: () => void
+  /** Open the Premium (web/Stripe) modal — used when a price is clicked. */
+  openPremium: () => void
 }
 
 const InstallContext = createContext<InstallContextValue | null>(null)
 
-type View = 'closed' | 'selector' | 'ios' | 'android' | 'android_video'
+type View = 'closed' | 'selector' | 'ios' | 'android' | 'android_video' | 'premium'
 
 /**
  * Holds the install-modal state and renders the modals once at the app root, so
@@ -30,8 +33,12 @@ export function InstallModalProvider({ children }: { children: ReactNode }) {
   const close = useCallback(() => setView('closed'), [])
   const openSelector = useCallback(() => setView('selector'), [])
   const openInstall = useCallback((platform: Platform) => setView(platform), [])
+  const openPremium = useCallback(() => setView('premium'), [])
 
-  const value = useMemo(() => ({ openInstall, openSelector }), [openInstall, openSelector])
+  const value = useMemo(
+    () => ({ openInstall, openSelector, openPremium }),
+    [openInstall, openSelector, openPremium],
+  )
 
   const isInstructions = view === 'ios' || view === 'android'
 
@@ -49,6 +56,12 @@ export function InstallModalProvider({ children }: { children: ReactNode }) {
       />
 
       <VideoModal isOpen={view === 'android_video'} onClose={() => setView('android')} />
+
+      <PremiumModal
+        isOpen={view === 'premium'}
+        onClose={close}
+        onDownloadApp={() => setView('selector')}
+      />
     </InstallContext.Provider>
   )
 }
