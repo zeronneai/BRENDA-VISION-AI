@@ -108,7 +108,7 @@ export interface Plan {
   period: string
   strikethrough?: string
   savings?: string
-  benefits: string[]
+  description: string
   featured: boolean
 }
 
@@ -120,39 +120,46 @@ const PLANS_DATA: {
   period: L
   strikethrough?: string
   savings?: L
-  benefits: L[]
+  description: L
   featured: boolean
 }[] = [
   {
-    badge: { es: 'FLEXIBLE', en: 'FLEXIBLE' },
+    badge: { es: 'BÁSICO', en: 'BASIC' },
     badgeAccent: false,
-    name: { es: 'PLAN MENSUAL', en: 'MONTHLY PLAN' },
-    price: '$59 USD',
+    name: { es: 'ALARMA', en: 'ALARM' },
+    price: '$9 USD',
     period: { es: '/mes', en: '/mo' },
-    benefits: [
-      { es: 'Acceso completo a Brenda Fitness', en: 'Full access to Brenda Fitness' },
-      { es: 'Rutinas, nutrición, recetas, suplementos', en: 'Workouts, nutrition, recipes, supplements' },
-      { es: 'Progreso y logros', en: 'Progress and achievements' },
-      { es: 'Actualizaciones constantes', en: 'Constant updates' },
-      { es: 'Cancela cuando quieras', en: 'Cancel anytime' },
-    ],
+    description: {
+      es: 'Solo la alarma. Despierta haciendo squats, suena aunque tu teléfono esté en silencio.',
+      en: 'Alarm only. Wake up doing squats, rings even when your phone is on silent.',
+    },
     featured: false,
   },
   {
-    badge: { es: '⭐ MEJOR PRECIO', en: '⭐ BEST VALUE' },
+    badge: { es: '⭐ RECOMENDADO', en: '⭐ RECOMMENDED' },
     badgeAccent: true,
-    name: { es: 'PLAN ANUAL', en: 'ANNUAL PLAN' },
+    name: { es: 'TODO INCLUIDO', en: 'ALL INCLUDED' },
+    price: '$59 USD',
+    period: { es: '/mes', en: '/mo' },
+    description: {
+      es: 'Alarma + planes de nutrición y entrenamiento con IA.',
+      en: 'Alarm + AI nutrition and workout plans.',
+    },
+    featured: true,
+  },
+  {
+    badge: { es: 'MEJOR PRECIO', en: 'BEST VALUE' },
+    badgeAccent: false,
+    name: { es: 'TODO INCLUIDO ANUAL', en: 'ALL INCLUDED — ANNUAL' },
     price: '$590 USD',
     period: { es: '/año', en: '/yr' },
     strikethrough: '$708 USD',
     savings: { es: 'Ahorra $118 USD (2 meses gratis)', en: 'Save $118 USD (2 months free)' },
-    benefits: [
-      { es: 'Todo lo del plan mensual', en: 'Everything in the monthly plan' },
-      { es: '2 meses gratis', en: '2 months free' },
-      { es: 'Plan favorito de las clientas', en: "Clients' favorite plan" },
-      { es: 'Sin renovación obligatoria', en: 'No mandatory renewal' },
-    ],
-    featured: true,
+    description: {
+      es: 'Todo incluido, ahorra 2 meses.',
+      en: 'Everything included, save 2 months.',
+    },
+    featured: false,
   },
 ]
 
@@ -165,7 +172,7 @@ export const getPlans = (lang: Lang): Plan[] =>
     period: p.period[lang],
     strikethrough: p.strikethrough,
     savings: p.savings?.[lang],
-    benefits: p.benefits.map((b) => b[lang]),
+    description: p.description[lang],
     featured: p.featured,
   }))
 
@@ -230,8 +237,8 @@ const FAQ_DATA: { question: L; answer: L }[] = [
   {
     question: { es: '¿Puedo cancelar la suscripción cuando quiera?', en: 'Can I cancel the subscription anytime?' },
     answer: {
-      es: 'Sí. La suscripción se gestiona desde tu cuenta de Apple (App Store) o Google (Google Play). Cancelas en un tap.',
-      en: 'Yes. The subscription is managed from your Apple (App Store) or Google (Google Play) account. Cancel in one tap.',
+      es: 'Sí. Gestionas tu suscripción desde tu cuenta en ecobrenda.vercel.app. Cancelas cuando quieras.',
+      en: 'Yes. You manage your subscription from your account at ecobrenda.vercel.app. Cancel anytime.',
     },
   },
   {
@@ -249,10 +256,10 @@ const FAQ_DATA: { question: L; answer: L }[] = [
     },
   },
   {
-    question: { es: '¿Hay versión gratis?', en: 'Is there a free version?' },
+    question: { es: '¿Cuánto cuesta?', en: 'How much does it cost?' },
     answer: {
-      es: 'Sí. La alarma con squats y los retos rápidos son GRATIS para siempre. El contenido premium de Brenda Fitness (rutinas, nutrición, etc.) requiere suscripción.',
-      en: 'Yes. The squat alarm and quick challenges are FREE forever. Brenda Fitness premium content (workouts, nutrition, etc.) requires a subscription.',
+      es: 'El plan Alarma cuesta $9 USD/mes (solo la alarma). El plan Todo Incluido suma nutrición y entrenamiento con IA por $59 USD/mes o $590 USD/año. Se gestiona desde ecobrenda.vercel.app.',
+      en: 'The Alarm plan is $9 USD/mo (alarm only). The All Included plan adds AI nutrition and training for $59 USD/mo or $590 USD/yr. Managed from ecobrenda.vercel.app.',
     },
   },
 ]

@@ -2,29 +2,19 @@ import { createContext, useCallback, useContext, useMemo, useState } from 'react
 import type { ReactNode } from 'react'
 import InstallInstructionsModal from './InstallInstructionsModal'
 import PlatformSelector from './PlatformSelector'
-import PremiumModal from './PremiumModal'
 import VideoModal from './VideoModal'
 import type { Platform } from '../../lib/install'
 
 interface InstallContextValue {
   /** Open the install instructions for a platform (iOS = TestFlight, Android = APK). */
   openInstall: (platform: Platform) => void
-  /** Open the "which device?" selector. */
+  /** Open the "which device?" selector (also used by the pricing plan buttons). */
   openSelector: () => void
-  /** Open the Premium (web/Stripe) modal — used when a price is clicked. */
-  openPremium: () => void
 }
 
 const InstallContext = createContext<InstallContextValue | null>(null)
 
-type View =
-  | 'closed'
-  | 'selector'
-  | 'ios'
-  | 'android'
-  | 'android_video'
-  | 'ios_video'
-  | 'premium'
+type View = 'closed' | 'selector' | 'ios' | 'android' | 'android_video' | 'ios_video'
 
 /**
  * Holds the install-modal state and renders the modals once at the app root, so
@@ -40,12 +30,8 @@ export function InstallModalProvider({ children }: { children: ReactNode }) {
   const close = useCallback(() => setView('closed'), [])
   const openSelector = useCallback(() => setView('selector'), [])
   const openInstall = useCallback((platform: Platform) => setView(platform), [])
-  const openPremium = useCallback(() => setView('premium'), [])
 
-  const value = useMemo(
-    () => ({ openInstall, openSelector, openPremium }),
-    [openInstall, openSelector, openPremium],
-  )
+  const value = useMemo(() => ({ openInstall, openSelector }), [openInstall, openSelector])
 
   const isInstructions = view === 'ios' || view === 'android'
 
@@ -64,12 +50,6 @@ export function InstallModalProvider({ children }: { children: ReactNode }) {
 
       <VideoModal isOpen={view === 'android_video'} onClose={() => setView('android')} platform="android" />
       <VideoModal isOpen={view === 'ios_video'} onClose={() => setView('ios')} platform="ios" />
-
-      <PremiumModal
-        isOpen={view === 'premium'}
-        onClose={close}
-        onDownloadApp={() => setView('selector')}
-      />
     </InstallContext.Provider>
   )
 }

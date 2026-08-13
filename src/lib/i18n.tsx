@@ -117,29 +117,14 @@ const UI = {
   // Pricing
   pricing_title: { es: 'ELIGE TU PLAN', en: 'CHOOSE YOUR PLAN' },
   pricing_sub: {
-    es: 'Suscríbete desde la app. Cancela cuando quieras.',
-    en: 'Subscribe from the app. Cancel anytime.',
+    es: 'Elige tu plan. Se gestiona en la web y funciona en todos tus dispositivos.',
+    en: 'Choose your plan. Managed on the web and works on all your devices.',
   },
   pricing_note: {
-    es: 'El plan Premium se adquiere en la web con pago seguro. La app se descarga y se usa gratis.',
-    en: 'The Premium plan is purchased on the web with secure payment. The app is free to download and use.',
+    es: 'Todos los planes se gestionan en ecobrenda.vercel.app con pago seguro. Elige tu plan, crea tu cuenta e instala la app.',
+    en: 'All plans are managed at ecobrenda.vercel.app with secure payment. Choose your plan, create your account and install the app.',
   },
   premium_card_btn: { es: 'ELEGIR PLAN', en: 'CHOOSE PLAN' },
-  premium_modal_title: {
-    es: 'Premium — nutrición y entrenamiento',
-    en: 'Premium — nutrition and training',
-  },
-  premium_modal_msg: {
-    es: 'El plan Premium (nutrición y entrenamiento) se adquiere aquí en la web. Suscríbete en el enlace, y luego inicia sesión con tu cuenta en la app (web, Android o iPhone) para acceder a tu premium.',
-    en: 'The Premium plan (nutrition and training) is purchased here on the web. Subscribe at the link, then sign in with your account in the app (web, Android, or iPhone) to access your premium.',
-  },
-  premium_subscribe_btn: { es: '⭐ SUSCRIBIRME AL PREMIUM', en: '⭐ SUBSCRIBE TO PREMIUM' },
-  premium_free_app: {
-    es: '¿Aún no tienes la app? Descárgala gratis',
-    en: "Don't have the app yet? Download it free",
-  },
-  pricing_per_month: { es: '/mes', en: '/mo' },
-  pricing_per_year: { es: '/año', en: '/yr' },
 
   // Testimonials
   testi_title: { es: 'ELLAS YA SE LEVANTAN', en: "THEY'RE ALREADY GETTING UP" },

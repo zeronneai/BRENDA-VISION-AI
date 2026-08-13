@@ -1,4 +1,3 @@
-import { Check } from 'lucide-react'
 import BetaBadge from '../components/BetaBadge'
 import Button from '../components/Button'
 import SectionHeading from '../components/SectionHeading'
@@ -10,7 +9,7 @@ import { useLang, useT } from '../lib/i18n'
 export default function Pricing() {
   const { lang } = useLang()
   const t = useT()
-  const { openPremium } = useInstall()
+  const { openSelector } = useInstall()
   const plans = getPlans(lang)
 
   return (
@@ -21,7 +20,7 @@ export default function Pricing() {
         <BetaBadge />
       </SectionReveal>
 
-      <div className="mt-14 grid items-stretch gap-6 md:grid-cols-2">
+      <div className="mt-14 grid items-stretch gap-6 md:grid-cols-3">
         {plans.map((plan, i) => (
           <SectionReveal key={plan.name} delay={i * 0.1} className="flex">
             <div
@@ -40,8 +39,11 @@ export default function Pricing() {
                 {plan.badge}
               </span>
 
+              {/* Name */}
+              <h3 className="mt-4 text-2xl text-white">{plan.name}</h3>
+
               {/* Price */}
-              <div className="mt-5 flex items-end gap-2">
+              <div className="mt-3 flex items-end gap-2">
                 <span className="text-5xl text-white">{plan.price}</span>
                 <span className="mb-1 text-muted">{plan.period}</span>
               </div>
@@ -54,23 +56,16 @@ export default function Pricing() {
                 <div className="mt-1 text-sm font-semibold text-lime">{plan.savings}</div>
               )}
 
-              {/* Benefits */}
-              <ul className="mt-6 flex-1 space-y-3">
-                {plan.benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-3 text-sm text-white/90">
-                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-lime" aria-hidden />
-                    <span>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* Description */}
+              <p className="mt-5 flex-1 text-sm leading-relaxed text-white/85">{plan.description}</p>
 
-              {/* CTA — opens the Premium (web/Stripe) modal */}
+              {/* CTA — opens the install steps (create account -> install) */}
               <div className="mt-7">
                 <Button
                   variant={plan.featured ? 'primary' : 'outline'}
                   size="lg"
                   className="w-full"
-                  onClick={openPremium}
+                  onClick={openSelector}
                 >
                   {t('premium_card_btn')}
                 </Button>
@@ -80,9 +75,7 @@ export default function Pricing() {
         ))}
       </div>
 
-      <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-muted">
-        {t('pricing_note')}
-      </p>
+      <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-muted">{t('pricing_note')}</p>
     </section>
   )
 }
