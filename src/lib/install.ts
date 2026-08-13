@@ -52,6 +52,7 @@ interface StepData {
   button?: { label: L; href: string }
 }
 interface FlowData {
+  warning?: L
   steps: StepData[]
   cta: { label: L; href: string; variant: 'primary' | 'outline' }
   perks?: L[]
@@ -86,44 +87,48 @@ const IOS_CONTENT_DATA: { headline: L; subtitle: L } = {
 }
 
 const IOS_FLOW_DATA: FlowData = {
+  warning: {
+    es: 'IMPORTANTE: no abras TestFlight por tu cuenta. Si te pide un código de invitación, cierra TestFlight y vuelve a tocar el botón de abajo.',
+    en: "IMPORTANT: don't open TestFlight on its own. If it asks for an invitation code, close TestFlight and tap the button below again.",
+  },
   steps: [
     ACCOUNT_STEP,
     {
       icon: 'Send',
       title: { es: 'INSTALA TESTFLIGHT', en: 'INSTALL TESTFLIGHT' },
       description: {
-        es: 'Descárgala del App Store: es la app oficial de Apple para probar apps.',
-        en: "Download it from the App Store: it's Apple's official app for testing apps.",
+        es: 'Descárgala del App Store (app gratuita de Apple).',
+        en: 'Download it from the App Store (free Apple app).',
       },
       button: { label: { es: 'Abrir App Store', en: 'Open App Store' }, href: TESTFLIGHT_APP_STORE_URL },
     },
     {
       icon: 'ExternalLink',
-      title: { es: 'ABRE LA INVITACIÓN', en: 'OPEN THE INVITATION' },
+      title: { es: 'REGRESA AQUÍ Y TOCA EL BOTÓN', en: 'COME BACK HERE AND TAP THE BUTTON' },
       description: {
-        es: 'Toca el botón de abajo para abrir la invitación de Booty Alarm en TestFlight.',
-        en: "Tap the button below to open Booty Alarm's invitation in TestFlight.",
+        es: 'Cuando termine de instalarse TestFlight, vuelve a esta página y toca el botón de abajo. NO abras TestFlight por tu cuenta.',
+        en: "Once TestFlight finishes installing, come back to this page and tap the button below. Don't open TestFlight on its own.",
       },
     },
     {
       icon: 'CheckCircle2',
       title: { es: 'ACEPTA E INSTALA', en: 'ACCEPT AND INSTALL' },
       description: {
-        es: 'En TestFlight, toca "Aceptar" e "Instalar". La app se descarga en segundos.',
-        en: 'In TestFlight, tap "Accept" and "Install". The app downloads in seconds.',
+        es: 'Se abrirá TestFlight con Booty Alarm. Toca ACEPTAR y luego INSTALAR.',
+        en: 'TestFlight will open with Booty Alarm. Tap ACCEPT, then INSTALL.',
       },
     },
     {
       icon: 'Rocket',
-      title: { es: '¡LISTO!', en: 'DONE!' },
+      title: { es: 'ABRE E INICIA SESIÓN', en: 'OPEN AND SIGN IN' },
       description: {
-        es: 'Abre Booty Alarm e inicia sesión con la cuenta que creaste. Todo queda listo.',
-        en: 'Open Booty Alarm and sign in with the account you created. Everything is ready.',
+        es: 'Abre Booty Alarm e inicia sesión con tu cuenta.',
+        en: 'Open Booty Alarm and sign in with your account.',
       },
     },
   ],
   cta: {
-    label: { es: '🚀 ABRIR INVITACIÓN DE TESTFLIGHT', en: '🚀 OPEN TESTFLIGHT INVITATION' },
+    label: { es: '🚀 ABRIR INVITACIÓN DE BOOTY ALARM', en: '🚀 OPEN BOOTY ALARM INVITATION' },
     href: STORE_LINKS.ios_testflight,
     variant: 'primary',
   },
@@ -202,6 +207,7 @@ const ANDROID_FLOW_DATA: FlowData = {
 // ─── Resolvers ─────────────────────────────────────────────────────────────
 function resolveFlow(data: FlowData, lang: Lang): InstallFlow {
   return {
+    warning: data.warning?.[lang],
     steps: data.steps.map((s) => ({
       icon: s.icon,
       title: s.title[lang],
