@@ -11,6 +11,7 @@ import {
   Share,
   ShieldCheck,
   TriangleAlert,
+  UserPlus,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { LinkButton } from '../Button'
@@ -28,6 +29,7 @@ const ICONS: Record<StepIcon, LucideIcon> = {
   Rocket,
   ShieldCheck,
   Download,
+  UserPlus,
 }
 
 const stepVariants = {

@@ -3,7 +3,7 @@
  * - Android → APK download flow.
  * - iOS → "coming soon to the App Store" + install-as-PWA-from-Safari steps.
  */
-import { STORE_LINKS, TESTFLIGHT_APP_STORE_URL } from './links'
+import { PREMIUM_CHECKOUT_URL, STORE_LINKS, TESTFLIGHT_APP_STORE_URL } from './links'
 import type { L, Lang } from './i18n'
 
 export type Platform = 'ios' | 'android'
@@ -20,6 +20,7 @@ export type StepIcon =
   | 'Rocket'
   | 'ShieldCheck'
   | 'Download'
+  | 'UserPlus'
 
 export interface InstallStep {
   icon: StepIcon
@@ -57,19 +58,39 @@ interface FlowData {
   footnotes?: L[]
 }
 
+/**
+ * Shared first step (both platforms): create your account + choose your plan on
+ * the web, so the app isn't locked when opened. Presented as a multiplatform
+ * web service, not "pay outside to unlock". The step number comes from the
+ * badge in InstallFlowView, so titles carry no hardcoded numbers.
+ */
+const ACCOUNT_STEP: StepData = {
+  icon: 'UserPlus',
+  title: { es: 'CREA TU CUENTA Y ELIGE TU PLAN', en: 'CREATE YOUR ACCOUNT AND CHOOSE YOUR PLAN' },
+  description: {
+    es: 'Entra a ecobrenda.vercel.app, crea tu cuenta y elige tu plan. Tu acceso funciona en todos tus dispositivos: web, Android e iPhone.',
+    en: 'Go to ecobrenda.vercel.app, create your account and choose your plan. Your access works on all your devices: web, Android, and iPhone.',
+  },
+  button: {
+    label: { es: 'Ir a crear mi cuenta', en: 'Create my account' },
+    href: PREMIUM_CHECKOUT_URL,
+  },
+}
+
 const IOS_CONTENT_DATA: { headline: L; subtitle: L } = {
   headline: { es: '📱 CÓMO INSTALAR EN IPHONE', en: '📱 HOW TO INSTALL ON IPHONE' },
   subtitle: {
-    es: 'Prueba Booty Alarm en tu iPhone vía TestFlight, la app oficial de Apple para betas. Solo toma un minuto.',
-    en: "Try Booty Alarm on your iPhone via TestFlight, Apple's official app for betas. It only takes a minute.",
+    es: 'Primero crea tu cuenta y plan; luego instala la app en tu iPhone vía TestFlight. Solo toma un minuto.',
+    en: 'First create your account and plan; then install the app on your iPhone via TestFlight. It only takes a minute.',
   },
 }
 
 const IOS_FLOW_DATA: FlowData = {
   steps: [
+    ACCOUNT_STEP,
     {
       icon: 'Send',
-      title: { es: '1. INSTALA TESTFLIGHT', en: '1. INSTALL TESTFLIGHT' },
+      title: { es: 'INSTALA TESTFLIGHT', en: 'INSTALL TESTFLIGHT' },
       description: {
         es: 'Descárgala del App Store: es la app oficial de Apple para probar apps.',
         en: "Download it from the App Store: it's Apple's official app for testing apps.",
@@ -78,7 +99,7 @@ const IOS_FLOW_DATA: FlowData = {
     },
     {
       icon: 'ExternalLink',
-      title: { es: '2. ABRE LA INVITACIÓN', en: '2. OPEN THE INVITATION' },
+      title: { es: 'ABRE LA INVITACIÓN', en: 'OPEN THE INVITATION' },
       description: {
         es: 'Toca el botón de abajo para abrir la invitación de Booty Alarm en TestFlight.',
         en: "Tap the button below to open Booty Alarm's invitation in TestFlight.",
@@ -86,7 +107,7 @@ const IOS_FLOW_DATA: FlowData = {
     },
     {
       icon: 'CheckCircle2',
-      title: { es: '3. ACEPTA E INSTALA', en: '3. ACCEPT AND INSTALL' },
+      title: { es: 'ACEPTA E INSTALA', en: 'ACCEPT AND INSTALL' },
       description: {
         es: 'En TestFlight, toca "Aceptar" e "Instalar". La app se descarga en segundos.',
         en: 'In TestFlight, tap "Accept" and "Install". The app downloads in seconds.',
@@ -94,10 +115,10 @@ const IOS_FLOW_DATA: FlowData = {
     },
     {
       icon: 'Rocket',
-      title: { es: '4. ¡LISTO!', en: '4. DONE!' },
+      title: { es: '¡LISTO!', en: 'DONE!' },
       description: {
-        es: 'Abre Booty Alarm desde tu pantalla de inicio y empieza.',
-        en: 'Open Booty Alarm from your home screen and get started.',
+        es: 'Abre Booty Alarm e inicia sesión con la cuenta que creaste. Todo queda listo.',
+        en: 'Open Booty Alarm and sign in with the account you created. Everything is ready.',
       },
     },
   ],
@@ -116,13 +137,14 @@ const IOS_FLOW_DATA: FlowData = {
 const ANDROID_CONTENT_DATA: { headline: L; subtitle: L } = {
   headline: { es: '🤖 INSTALAR EN ANDROID', en: '🤖 INSTALL ON ANDROID' },
   subtitle: {
-    es: 'Descarga el archivo directamente. Pronto estaremos en Google Play.',
-    en: 'Download the file directly. Coming soon to Google Play.',
+    es: 'Primero crea tu cuenta y plan; luego descarga el APK. Pronto estaremos en Google Play.',
+    en: 'First create your account and plan; then download the APK. Coming soon to Google Play.',
   },
 }
 
 const ANDROID_FLOW_DATA: FlowData = {
   steps: [
+    ACCOUNT_STEP,
     {
       icon: 'ShieldCheck',
       title: { es: 'PERMITE INSTALACIÓN DE FUENTES DESCONOCIDAS', en: 'ALLOW INSTALLATION FROM UNKNOWN SOURCES' },
@@ -155,8 +177,8 @@ const ANDROID_FLOW_DATA: FlowData = {
       icon: 'Rocket',
       title: { es: 'INICIA SESIÓN Y EMPIEZA', en: 'SIGN IN AND START' },
       description: {
-        es: 'Crea tu cuenta o inicia sesión. La alarma con squats está lista para configurarse.',
-        en: 'Create your account or sign in. The squat alarm is ready to set up.',
+        es: 'Inicia sesión con la cuenta que creaste. La alarma con squats está lista para configurarse.',
+        en: 'Sign in with the account you created. The squat alarm is ready to set up.',
       },
     },
   ],
