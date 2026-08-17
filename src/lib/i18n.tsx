@@ -76,6 +76,10 @@ const UI = {
     en: "The only alarm that WON'T turn off until your body moves.",
   },
   hero_tagline: { es: '¿O NO PUEDES? 🍑', en: "OR CAN'T YOU? 🍑" },
+  hero_trial: {
+    es: '🎁 Empieza con 3 días gratis en el plan Alarma',
+    en: '🎁 Start with 3 days free on the Alarm plan',
+  },
   hero_scroll: { es: 'Bajar', en: 'Scroll down' },
 
   // Beta badge

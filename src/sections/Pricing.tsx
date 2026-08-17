@@ -1,3 +1,4 @@
+import { Sparkles } from 'lucide-react'
 import BetaBadge from '../components/BetaBadge'
 import Button from '../components/Button'
 import SectionHeading from '../components/SectionHeading'
@@ -26,10 +27,17 @@ export default function Pricing() {
             <div
               className={`glass flex w-full flex-col p-7 transition-all duration-300 ${
                 plan.featured
-                  ? 'border-magenta/60 shadow-glow-lg md:scale-[1.03]'
+                  ? 'border-lime/50 shadow-glow-lg md:scale-[1.04]'
                   : 'hover:border-white/20'
               }`}
             >
+              {/* Free-trial badge — the main hook (animated) */}
+              {plan.trialBadge && (
+                <span className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-lime px-4 py-1.5 text-sm font-extrabold uppercase tracking-wide text-ink animate-trial-glow motion-reduce:animate-none motion-reduce:shadow-glow">
+                  🎁 {plan.trialBadge}
+                </span>
+              )}
+
               {/* Badge */}
               <span
                 className={`inline-flex w-fit rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${
@@ -55,9 +63,21 @@ export default function Pricing() {
               {plan.savings && (
                 <div className="mt-1 text-sm font-semibold text-lime">{plan.savings}</div>
               )}
+              {plan.subprice && <div className="mt-2 text-sm text-muted">{plan.subprice}</div>}
 
               {/* Description */}
-              <p className="mt-5 flex-1 text-sm leading-relaxed text-white/85">{plan.description}</p>
+              <p className="mt-5 text-sm leading-relaxed text-white/85">{plan.description}</p>
+
+              {/* Delivery note (personalized, ~48h) */}
+              {plan.delivery && (
+                <div className="mt-4 flex items-start gap-2.5 rounded-2xl border border-lime/25 bg-lime/[0.06] p-3">
+                  <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-lime" aria-hidden />
+                  <p className="text-xs leading-relaxed text-white/80">{plan.delivery}</p>
+                </div>
+              )}
+
+              {/* Spacer so buttons align at the bottom */}
+              <div className="flex-1" />
 
               {/* CTA — opens the install steps (create account -> install) */}
               <div className="mt-7">

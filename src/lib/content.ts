@@ -103,37 +103,56 @@ export const getPremiumFeatures = (lang: Lang): Feature[] =>
 export interface Plan {
   badge: string
   badgeAccent: boolean
+  /** Big animated "free trial" badge (only the Alarm plan). */
+  trialBadge?: string
   name: string
   price: string
   period: string
   strikethrough?: string
   savings?: string
+  /** Small line under the price (e.g. "Then $9/month. Cancel anytime."). */
+  subprice?: string
   description: string
+  /** Delivery note for the plans prepared by Brenda (~48h). */
+  delivery?: string
   featured: boolean
+}
+
+const DELIVERY_NOTE: L = {
+  es: 'Tu plan de nutrición y entrenamiento se entrega en aproximadamente 48 horas. Brenda lo prepara y lo aprueba antes de que llegue a ti.',
+  en: 'Your nutrition and training plan is delivered in about 48 hours. Brenda prepares and approves it before it reaches you.',
 }
 
 const PLANS_DATA: {
   badge: L
   badgeAccent: boolean
+  trialBadge?: L
   name: L
   price: string
   period: L
   strikethrough?: string
   savings?: L
+  subprice?: L
   description: L
+  delivery?: L
   featured: boolean
 }[] = [
   {
-    badge: { es: 'BÁSICO', en: 'BASIC' },
-    badgeAccent: false,
+    badge: { es: 'EMPIEZA AQUÍ', en: 'START HERE' },
+    badgeAccent: true,
+    trialBadge: { es: '3 DÍAS GRATIS', en: '3 DAYS FREE' },
     name: { es: 'ALARMA', en: 'ALARM' },
     price: '$9 USD',
     period: { es: '/mes', en: '/mo' },
+    subprice: {
+      es: 'Luego $9/mes. Cancela cuando quieras.',
+      en: 'Then $9/month. Cancel anytime.',
+    },
     description: {
       es: 'Solo la alarma. Despierta haciendo squats, suena aunque tu teléfono esté en silencio.',
       en: 'Alarm only. Wake up doing squats, rings even when your phone is on silent.',
     },
-    featured: false,
+    featured: true,
   },
   {
     badge: { es: '⭐ RECOMENDADO', en: '⭐ RECOMMENDED' },
@@ -145,7 +164,8 @@ const PLANS_DATA: {
       es: 'Alarma + planes de nutrición y entrenamiento con IA.',
       en: 'Alarm + AI nutrition and workout plans.',
     },
-    featured: true,
+    delivery: DELIVERY_NOTE,
+    featured: false,
   },
   {
     badge: { es: 'MEJOR PRECIO', en: 'BEST VALUE' },
@@ -159,6 +179,7 @@ const PLANS_DATA: {
       es: 'Todo incluido, ahorra 2 meses.',
       en: 'Everything included, save 2 months.',
     },
+    delivery: DELIVERY_NOTE,
     featured: false,
   },
 ]
@@ -167,12 +188,15 @@ export const getPlans = (lang: Lang): Plan[] =>
   PLANS_DATA.map((p) => ({
     badge: p.badge[lang],
     badgeAccent: p.badgeAccent,
+    trialBadge: p.trialBadge?.[lang],
     name: p.name[lang],
     price: p.price,
     period: p.period[lang],
     strikethrough: p.strikethrough,
     savings: p.savings?.[lang],
+    subprice: p.subprice?.[lang],
     description: p.description[lang],
+    delivery: p.delivery?.[lang],
     featured: p.featured,
   }))
 

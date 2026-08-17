@@ -55,6 +55,12 @@ export default function Hero() {
           <motion.div variants={fadeUp} className="mt-9 flex justify-center">
             <StoreButtons size="lg" />
           </motion.div>
+
+          <motion.div variants={fadeUp} className="mt-6 flex justify-center">
+            <span className="inline-flex items-center rounded-full border border-lime/40 bg-lime/10 px-4 py-2 text-sm font-bold text-lime animate-trial-glow motion-reduce:animate-none">
+              {t('hero_trial')}
+            </span>
+          </motion.div>
         </motion.div>
 
         {/* Scroll indicator */}

@@ -42,11 +42,22 @@ export default {
           '40%': { opacity: '1' },
           '100%': { opacity: '0', transform: 'translateY(12px)' },
         },
+        'trial-glow': {
+          '0%, 100%': {
+            boxShadow: '0 0 0 0 rgba(198,255,0,0.45)',
+            transform: 'scale(1)',
+          },
+          '50%': {
+            boxShadow: '0 0 22px 4px rgba(198,255,0,0.65)',
+            transform: 'scale(1.05)',
+          },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.7s ease-out forwards',
         float: 'float 4s ease-in-out infinite',
         'scroll-hint': 'scroll-hint 1.8s ease-in-out infinite',
+        'trial-glow': 'trial-glow 1.8s ease-in-out infinite',
       },
     },
   },
