@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF1A6B"/>
+      <stop offset="1" stop-color="#B0134D"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.18" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="peach" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#FFD9A8"/>
+      <stop offset="0.55" stop-color="#FFB27A"/>
+      <stop offset="1" stop-color="#F98C6B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded app-icon tile -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#glow)"/>
+
+  <!-- Leaf -->
+  <path d="M262 156 C 262 118, 300 96, 336 104 C 330 142, 300 162, 262 156 Z" fill="#C6FF00"/>
+  <path d="M256 178 C 256 158, 260 146, 272 132" fill="none" stroke="#8FBF00" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Peach body -->
+  <path d="M256 176
+           C 306 140, 388 158, 388 252
+           C 388 344, 326 410, 256 410
+           C 186 410, 124 344, 124 252
+           C 124 158, 206 140, 256 176 Z"
+        fill="url(#peach)"/>
+
+  <!-- Cleft -->
+  <path d="M256 182 C 246 240, 246 320, 256 392"
+        fill="none" stroke="#E8895F" stroke-width="12" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Soft highlight -->
+  <ellipse cx="196" cy="230" rx="34" ry="46" fill="#ffffff" opacity="0.22" transform="rotate(-18 196 230)"/>
+</svg>
